@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'gestion_productos.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "db_gestion_productos",
+        "NAME": "gestion_productos",
         "USER": "postgres",
         "PASSWORD": "postgres",
         "HOST": "localhost",
