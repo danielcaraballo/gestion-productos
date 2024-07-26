@@ -58,8 +58,8 @@ class Solicitante(models.Model):
 
 class Responsable(models.Model):
     ROL_CHOICES = [
-        ('Gestor de proyecto', 'Gestor del proyecto'),
-        ('Analista de requerimientos', 'Analista de requerimientos')
+        ('Gestor de proyecto', 'Gestor de proyecto'),
+        ('Analista de requerimientos', 'Analista de requerimientos'),
         ('Programador', 'Programador'),
     ]
     origen = models.CharField(max_length=50)
