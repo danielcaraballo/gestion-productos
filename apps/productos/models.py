@@ -28,10 +28,10 @@ class Tecnologia(models.Model):
         ('Backend', 'Backend'),
         ('Frontend', 'Frontend')
     ]
-    nombre = models.CharField(max_length=100, verbose_name="Nombre de la Tecnologia")
+    nombre = models.CharField(max_length=100, verbose_name="Nombre")
     tipo = models.CharField(max_length=100, choices=TIPO_CHOICES, verbose_name="Tipo")
-    lenguaje = models.CharField(max_length=100, verbose_name="Lenguaje")
-    version = models.CharField(max_length=50, verbose_name="Version de la Tecnologia")
+    lenguaje = models.CharField(max_length=100, verbose_name="Lenguaje de Programacion")
+    version = models.CharField(max_length=50, verbose_name="Version")
 
     def __str__(self) -> str:
         return f"{self.nombre} v{self.version} ({self.tipo})"
@@ -81,31 +81,42 @@ class ServidorWeb(models.Model):
     estatus = models.CharField(max_length=50, choices=ESTATUS_CHOICES)
 
     def __str__(self) -> str:
-        return f"{self.direccion_ip} ({self.estatus})"
+        return f"IP:{self.direccion_ip} ({self.estatus})"
     
     class Meta:
         verbose_name = "Servidor Web"
         verbose_name_plural = "Servidores Web"
     
-class BaseDatos(models.Model):
-    direccion_ip = models.GenericIPAddressField()
+class TipoBaseDatos(models.Model):
     nombre = models.CharField(max_length=100)
-    tipo = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nombre
+    
+    class Meta:
+        verbose_name = "Tipo de Base de Datos"
+        verbose_name_plural = "Tipos de Bases de Datos"
+
+class BaseDatos(models.Model):
+    nombre = models.CharField(max_length=100)
+    direccion_ip = models.GenericIPAddressField()
+    tipo = models.ForeignKey('TipoBaseDatos', on_delete=models.PROTECT, related_name='basesdatos')
 
     def __str__(self) -> str:
-        return f"{self.nombre} ({self.direccion_ip})"
+        return f"{self.nombre} (IP:{self.direccion_ip})"
     
     class Meta:
         verbose_name = "Base de Datos"
         verbose_name_plural = "Bases de Datos"
     
 class Version(models.Model):
-    numero = models.CharField(max_length=50)
+    numero = models.CharField(max_length=10)
     fecha_lanzamiento = models.DateField()
     nota = models.TextField()
+    producto = models.ForeignKey('Producto',on_delete=models.PROTECT, related_name='versiones')
 
     def __str__(self) -> str:
-        return self.numero
+        return f"{self.producto.nombre} - v{self.numero}"
     
     class Meta:
         verbose_name = "Version"
@@ -117,7 +128,6 @@ class Producto(models.Model):
     direccion_url = models.URLField()
     estatus = models.CharField(max_length=100, choices=ESTATUS_CHOICES)
     fecha_lanzamiento = models.DateField()
-    version = models.ForeignKey(Version, on_delete=models.PROTECT) 
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     solicitante = models.ForeignKey(Solicitante, on_delete=models.PROTECT)
 
