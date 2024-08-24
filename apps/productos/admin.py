@@ -2,10 +2,13 @@ from django.contrib import admin
 from .models import (Categoria, Tecnologia, Solicitante, Responsable, ServidorWeb, TipoBaseDatos, BaseDatos,
                      Version, Producto, TecnologiaProducto, ResponsableProducto, Infraestructura)
 
+
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'descripcion', 'direccion_url', 'estatus', 'categoria')
+    list_display = ('nombre', 'descripcion',
+                    'direccion_url', 'estatus', 'categoria')
     search_fields = ('nombre', 'descripcion')
     list_filter = ('estatus', 'categoria')
+
 
 # Modelo Producto con la configuración personalizada
 admin.site.register(Producto, ProductoAdmin)
