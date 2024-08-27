@@ -1,3 +1,7 @@
-.venv/
-*.pyc
+# Entorno virtual
+venv/
+
+# Archivos y carpetas generados por Python
 __pycache__/
+*.pyc
+*.pyo
