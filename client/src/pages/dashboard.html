@@ -1,32 +1,30 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Gestion de Productos</title>
+    <!-- CSS files -->
+    <link href="../assets/css/tabler.min.css" rel="stylesheet" />
+    <link href="../assets/css/tabler-flags.min.css" rel="stylesheet" />
+    <link href="../assets/css/tabler-payments.min.css" rel="stylesheet" />
+    <link href="../assets/css/tabler-vendors.min.css" rel="stylesheet" />
+    <link href="../assets/css/demo.min.css" rel="stylesheet" />
+    <style>
+      @import url('https://rsms.me/inter/inter.css');
+  
+      :root {
+        --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+  
+      body {
+        font-feature-settings: "cv03", "cv04", "cv11";
+      }
+    </style>
+  </head>
 
-</html>
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Gestion de Productos</title>
-  <!-- CSS files -->
-  <link href="../assets/css/tabler.min.css" rel="stylesheet" />
-  <link href="../assets/css/tabler-flags.min.css" rel="stylesheet" />
-  <link href="../assets/css/tabler-payments.min.css" rel="stylesheet" />
-  <link href="../assets/css/tabler-vendors.min.css" rel="stylesheet" />
-  <link href="../assets/css/demo.min.css" rel="stylesheet" />
-  <style>
-    @import url('https://rsms.me/inter/inter.css');
-
-    :root {
-      --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
-    }
-
-    body {
-      font-feature-settings: "cv03", "cv04", "cv11";
-    }
-  </style>
-</head>
-
-<body>
+  <body>
   <script src="../assets/js/demo-theme.min.js"></script>
   <div class="page">
     <!-- Navbar -->
@@ -37,7 +35,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-          <a href=".">
+          <a href="#">
             <img src="../../public/static/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
           </a>
         </h1>
@@ -200,7 +198,7 @@
           <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="./">
+                <a class="nav-link" href="../pages/dashboard.html">
                   <span
                     class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
@@ -216,11 +214,10 @@
                   </span>
                 </a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
-                  data-bs-auto-close="outside" role="button" aria-expanded="false">
+              <li class="nav-item"></li>
+                <a class="nav-link" href="../pages/products.html">
                   <span
-                    class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/package -->
+                    class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
                       stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -235,18 +232,9 @@
                     Productos
                   </span>
                 </a>
-                <div class="dropdown-menu">
-                  <div class="dropdown-menu-columns">
-                    <div class="dropdown-menu-column">
-                      <a class="dropdown-item" href="./alerts.html">
-                        Aplicaciones Web
-                      </a>
-                    </div>
-                  </div>
-                </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./form-elements.html">
+                <a class="nav-link" href="../pages/error-maintenance.html">
                   <span
                     class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/checkbox -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
