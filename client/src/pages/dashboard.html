@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Gestion de Productos</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- CSS files -->
     <link href="../assets/css/tabler.min.css" rel="stylesheet" />
     <link href="../assets/css/tabler-flags.min.css" rel="stylesheet" />
@@ -190,7 +191,7 @@
               <a href="#" class="dropdown-item">Feedback</a>
               <div class="dropdown-divider"></div>
               <a href="./settings.html" class="dropdown-item">Configuracion</a>
-              <a href="./sign-in.html" class="dropdown-item">Cerrar sesion</a>
+              <a id="signout-button" href="#" class="dropdown-item">Cerrar sesión</a>
             </div>
           </div>
         </div>
@@ -708,6 +709,8 @@
       </div>
     </div>
   </div>
+  <script src="../assets/js/auth.js" type="module"></script>
+  <script src="../assets/js/sign-in.js" type="module"></script>
   <!-- Libs JS -->
   <script src="../assets/libs/apexcharts/dist/apexcharts.min.js" defer></script>
   <script src="../assets/libs/jsvectormap/dist/js/jsvectormap.min.js" defer></script>

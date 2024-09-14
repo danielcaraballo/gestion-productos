@@ -1,30 +1,29 @@
-<html lang="en"></html>
-
-</html>
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Gestion de Productos</title>
-  <!-- CSS files -->
-  <link href="../assets/css/tabler.min.css" rel="stylesheet" />
-  <link href="../assets/css/tabler-flags.min.css" rel="stylesheet" />
-  <link href="../assets/css/tabler-payments.min.css" rel="stylesheet" />
-  <link href="../assets/css/tabler-vendors.min.css" rel="stylesheet" />
-  <link href="../assets/css/demo.min.css" rel="stylesheet" />
-  <style>
-    @import url('https://rsms.me/inter/inter.css');
-
-    :root {
-      --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
-    }
-
-    body {
-      font-feature-settings: "cv03", "cv04", "cv11";
-    }
-  </style>
-</head>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Gestion de Productos</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- CSS files -->
+    <link href="../assets/css/tabler.min.css" rel="stylesheet" />
+    <link href="../assets/css/tabler-flags.min.css" rel="stylesheet" />
+    <link href="../assets/css/tabler-payments.min.css" rel="stylesheet" />
+    <link href="../assets/css/tabler-vendors.min.css" rel="stylesheet" />
+    <link href="../assets/css/demo.min.css" rel="stylesheet" />
+    <style>
+      @import url('https://rsms.me/inter/inter.css');
+  
+      :root {
+        --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+  
+      body {
+        font-feature-settings: "cv03", "cv04", "cv11";
+      }
+    </style>
+  </head>
 
 <body  class=" d-flex flex-column"></body>
     <script src="../assets/js/demo-theme.min.js"></script>
@@ -38,20 +37,22 @@
         <div class="card card-md">
           <div class="card-body">
             <h2 class="h2 text-center mb-4">Iniciar sesión</h2>
-            <form action="./" method="get" autocomplete="off" novalidate>
+            <form id="form-signin" method="get" autocomplete="off" novalidate>
               <div class="mb-3">
-                <label class="form-label">Usuario</label>
-                <input type="email" class="form-control" placeholder="Ingrese su usuario" autocomplete="off">
+                <label for="username" class="form-label">
+                  Usuario
+                </label>
+                <input id="username" type="text" class="form-control" placeholder="Ingrese su usuario" autocomplete="off" required>
               </div>
               <div class="mb-2">
-                <label class="form-label">
+                <label for="password" class="form-label">
                   Contraseña
                   <!-- <span class="form-label-description">
                     <a href="./forgot-password.html">Olvide mi contraseña</a>
                   </span> -->
                 </label>
                 <div class="input-group input-group-flat">
-                  <input type="password" class="form-control"  placeholder="Ingrese su contraseña"  autocomplete="off">
+                  <input id="password" type="password" class="form-control"  placeholder="Ingrese su contraseña"  autocomplete="off" required>
                   <span class="input-group-text">
                     <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                       <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
@@ -69,6 +70,9 @@
                 <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
               </div>
             </form>
+            <!-- MENSAJE DE PRUEBA -->
+            <p id="error-message" style="color: red;"></p> 
+            </div>
           </div>
         <!-- <div class="text-center text-secondary mt-3">
           No tienes cuenta? <a href="./sign-up.html" tabindex="-1">Registrate</a>
@@ -96,9 +100,10 @@
         </div>
       </div>
     </footer>
-    <!-- Libs JS -->
+    <script src="../assets/js/token.js" type="module"></script>
+    <script src="../assets/js/sign-in.js" type="module"></script>
     <!-- Tabler Core -->
-  <script src="../assets/js/tabler.min.js" defer></script>
-  <script src="../assets/js/demo.min.js" defer></script>
+    <script src="../assets/js/tabler.min.js" defer></script>
+    <script src="../assets/js/demo.min.js" defer></script>
   </body>
 </html>
