@@ -1,4 +1,5 @@
 import { setToken } from './token.js';
+import { displayError } from './alert.js';
 
 // Función para manejar el envío del formulario
 function handleFormSubmit(event) {
@@ -30,16 +31,6 @@ function loginUser(username, password) {
       console.error('Error en la autenticación:', error);
       displayError('Usuario o contraseña incorrectos');
     });
-}
-
-// Función para mostrar mensajes de error en la interfaz
-function displayError(message) {
-  const errorMessageElement = document.getElementById('error-message');
-  if (errorMessageElement) {
-    errorMessageElement.innerText = message;
-  } else {
-    console.warn('Elemento de mensaje de error no encontrado.');
-  }
 }
 
 // Configurar el evento de envío del formulario
