@@ -1,6 +1,8 @@
+import CONFIG from "./config.js";
+
 window.onload = function() {
     // Llamada para obtener los datos de estatus de productos
-    axios.get('http://127.0.0.1:8000/api/productos/producto-estatus-count/')
+    axios.get(`${CONFIG.API_BASE_URL}/productos/producto-estatus-count/`)
       .then(response => {
         const data = response.data;
         
@@ -14,4 +16,3 @@ window.onload = function() {
         console.error('Error al obtener los datos de estatus de productos:', error);
       });
   };
-  

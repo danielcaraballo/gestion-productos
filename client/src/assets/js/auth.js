@@ -1,5 +1,7 @@
 // auth.js Maneja la autenticación general del usuario
 
+import CONFIG from "./config.js";
+
 // token.js contiene funciones para gestionar el token de autenticación
 import { getToken, isAuthenticated, removeToken } from './token.js';
 
@@ -22,7 +24,7 @@ function redirectToSignIn() {
 
 // Función para obtener datos protegidos de la API
 function fetchProtectedData() {
-  axios.get('http://localhost:8000/api/productos/', {
+  axios.get(`${CONFIG.API_BASE_URL}/productos/`, {
     headers: {
       'Authorization': `Bearer ${getToken()}`  // Incluir el token en el encabezado
     }
@@ -54,17 +56,22 @@ function updatePageWithData(data) {
 // Función para manejar el cierre de sesión
 function setupSignOutButton() {
   const signoutButton = document.getElementById('signout-button');
+  console.log('Botón de cerrar sesión encontrado:', signoutButton);
 
   if (signoutButton) {
-    signoutButton.addEventListener('click', () => {
+    signoutButton.addEventListener('click', (event) => {
+      event.preventDefault();  // Prevenir el comportamiento predeterminado del enlace
+      console.log('Cierre de sesión...');
       removeToken();
       redirectToSignIn();
     });
+  } else {
+    console.error('No se encontró el botón de cierre de sesión. Verifica el ID.');
   }
 }
 
 // Inicializar la lógica de la página cuando se carga
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', () => {
   initPage();
   setupSignOutButton();
-};
+});

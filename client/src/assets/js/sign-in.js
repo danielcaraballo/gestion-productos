@@ -1,3 +1,4 @@
+import CONFIG from "./config.js";
 import { setToken } from './token.js';
 import { displayError } from './alert.js';
 
@@ -19,7 +20,7 @@ function handleFormSubmit(event) {
 
 // Función para iniciar sesión y manejar la respuesta
 function loginUser(username, password) {
-  axios.post('http://localhost:8000/api/token/', { username, password })
+  axios.post(`${CONFIG.API_BASE_URL}/token/`, { username, password })
     .then(response => {
       const { access: token } = response.data;  // Desestructurar el token de la respuesta
       setToken(token);  // Guardar el token usando la función de token.js
