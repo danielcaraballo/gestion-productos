@@ -1,4 +1,6 @@
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from .models import (Categoria, Tecnologia, Solicitante, Responsable, ServidorWeb, TipoBaseDatos, BaseDatos, Version,
                      Producto,  TecnologiaProducto, ResponsableProducto, Infraestructura)
 from .serializers import (CategoriaSerializer, TecnologiaSerializer, SolicitanteSerializer, ResponsableSerializer,
@@ -51,6 +53,17 @@ class VersionViewSet(viewsets.ModelViewSet):
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
+
+
+class ProductoEstatusCountView(APIView):
+    def get(self, request):
+        data = {
+            "operativo": Producto.objects.filter(estatus="Operativo").count(),
+            "mantenimiento": Producto.objects.filter(estatus="Mantenimiento").count(),
+            "inactivo": Producto.objects.filter(estatus="Inactivo").count(),
+            "retirado": Producto.objects.filter(estatus="Retirado").count(),
+        }
+        return Response(data)
 
 # ViewSets para tablas intermedias
 
