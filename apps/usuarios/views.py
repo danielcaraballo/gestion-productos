@@ -57,3 +57,17 @@ class ChangePasswordView(APIView):      # Vista para cambiar la contrasena
             update_session_auth_hash(request, user)
             return Response({"message": "Password changed successfully"}, status=status.HTTP_200_OK)
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserProfileView(APIView):  # Vista para obtener el perfil del usuario autenticado
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        groups = [group.name for group in user.groups.all()]
+        profile_data = {
+            'username': user.username,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'groups': groups,
+        }
+        return Response(profile_data)

@@ -75,3 +75,38 @@ document.addEventListener('DOMContentLoaded', () => {
   initPage();
   setupSignOutButton();
 });
+
+
+function UserProfile() {
+  if (isAuthenticated()) {  // Verifica si el token es válido y no ha expirado
+    axios.get(`${CONFIG.API_BASE_URL}/usuarios/profile-data/`, {
+      headers: {
+          'Authorization': `Bearer ${getToken()}`  // Usa el token válido
+      }
+    })
+    .then(response => {
+      // Imprime los datos para depuración
+      console.log('Profile data:', response.data);
+        const profileData = response.data;
+        // Concatenar nombre y apellido
+        const fullName = `${profileData.first_name} ${profileData.last_name}`;
+        // document.getElementById('username').textContent = profileData.username;
+        // document.getElementById('first-name').textContent = profileData.first_name;
+        // document.getElementById('last-name').textContent = profileData.last_name;
+        document.getElementById('full-name').textContent = fullName;  // Muestra el nombre completo
+        document.getElementById('user-group').textContent = profileData.groups;
+    })
+    .catch(error => {
+        console.error('Error fetching user profile:', error);
+        if (error.response && error.response.status === 401) {
+          console.error('Unauthorized, redirecting to login');
+          // Aquí puedes redirigir al usuario al login si no está autorizado
+        }
+    });
+  } else {
+      console.error('Token no válido o expirado');
+      // Redirige al usuario al login si el token no es válido o ha expirado
+  }
+}
+
+UserProfile();

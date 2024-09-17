@@ -153,9 +153,9 @@ class navbar extends HTMLElement {
                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                   aria-label="Open user menu">
                   <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
-                  <div class="d-none d-xl-block ps-2">
-                    <div>Daniel Caraballo</div>
-                    <div class="mt-1 small text-secondary">Project Manager</div>
+                  <div id="user-info" class="d-none d-xl-block ps-2">
+                    <div id="full-name">Usuario</div>
+                    <div id="user-group" class="mt-1 small text-secondary">Rol de usuario</div>
                   </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" data-bs-theme="light">
@@ -227,5 +227,6 @@ class navbar extends HTMLElement {
         `;
     }
 }
+
 
 customElements.define('navbar-component', navbar);
