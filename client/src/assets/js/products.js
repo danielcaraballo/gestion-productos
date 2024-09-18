@@ -1,5 +1,10 @@
 import CONFIG from "./config.js";
 
+let currentPage = 1; // Página inicial
+const productsPerPage = 10; // Número de productos por página
+let totalPages = 0; // Número total de páginas
+let allProducts = []; // Todos los productos cargados
+
 document.addEventListener('DOMContentLoaded', function() {
     fetchProducts();
 });
@@ -8,9 +13,12 @@ document.addEventListener('DOMContentLoaded', function() {
 function fetchProducts() {
     axios.get(`${CONFIG.API_BASE_URL}/productos/productos/`)
         .then(response => {
-            const products = response.data;
-            if (products.length > 0) {
-                populateTable(products);
+            allProducts = response.data;
+            if (allProducts.length > 0) {
+                totalPages = Math.ceil(allProducts.length / productsPerPage);
+                populateTable();
+                updatePaginationNumbers(); // Separa el control de números
+                updatePaginationButtons(); // Separa el control de botones
             } else {
                 showEmptyMessage();
             }
@@ -24,56 +32,139 @@ function fetchProducts() {
 // Mostrar mensaje si no hay productos
 function showEmptyMessage() {
     const tableBody = document.querySelector('.table-tbody');
-    tableBody.innerHTML = '<tr><td colspan="7">No hay productos disponibles.</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="5">No hay productos disponibles.</td></tr>';
 }
 
 // Mostrar mensaje de error en la UI
 function showErrorMessage() {
     const tableBody = document.querySelector('.table-tbody');
-    tableBody.innerHTML = '<tr><td colspan="7">Error al cargar los productos. Inténtalo de nuevo más tarde.</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="5">Error al cargar los productos. Inténtalo de nuevo más tarde.</td></tr>';
 }
 
-// Función para generar una fila de la tabla
+
+function getStatusClass(estatua) {
+    switch (estatua.toLowerCase()) {
+        case 'operativo':
+            return 'badge bg-success me-1'; // verde
+        case 'mantenimiento':
+            return 'badge bg-warning me-1'; // amarillo
+        case 'inactivo':
+            return 'badge bg-secondary me-1'; // gris
+        case 'retirado':
+            return 'badge bg-danger me-1'; // rojo
+        default:
+            return 'badge bg-light me-1'; // color por defecto
+    }
+}
+
+
 function generateRowHTML(product) {
     const tecnologiaTags = product.tecnologias.map(tecnologia => `
-        <span class="tag">
-          ${tecnologia.nombre}
-        </span>
-      `).join('');
-    
+        <span class="tag">${tecnologia.nombre}</span>
+    `).join('');
+
+    const estatusClass = getStatusClass(product.estatus);
+
     return `
       <tr>
         <td class="sort-nombre">${product.nombre}</td>
         <td class="sort-categoria">${product.categoria.nombre}</td>
         <td class="sort-tecnologias">
-            <div class="tags-list">
-                ${tecnologiaTags}
-            </div>
+            <div class="tags-list">${tecnologiaTags}</div>
         </td>
-        
-        <td class="sort-estatus">${product.estatus}</td>
+        <td class="sort-estatus">
+            <span class="${estatusClass}">${product.estatus}</span>
+        </td>
         <td class="sort-url">${product.direccion_url}</td>
       </tr>
     `;
 }
 
-// Función para popular la tabla
-function populateTable(products) {
+
+// Función para popular la tabla en función de la página actual
+function populateTable() {
     const tableBody = document.querySelector('.table-tbody');
     tableBody.innerHTML = ''; // Limpiar la tabla
 
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const endIndex = Math.min(startIndex + productsPerPage, allProducts.length);
+    const currentProducts = allProducts.slice(startIndex, endIndex);
+
     const fragment = document.createDocumentFragment();
-    products.forEach(product => {
+    currentProducts.forEach(product => {
         const row = document.createElement('tr');
         row.innerHTML = generateRowHTML(product);
         fragment.appendChild(row);
     });
 
     tableBody.appendChild(fragment);
+
+    // Actualizar el rango de productos mostrados
+    document.getElementById('start-entry').textContent = startIndex + 1;
+    document.getElementById('end-entry').textContent = endIndex;
+    document.getElementById('total-entries').textContent = allProducts.length;
 }
 
-// Función para formatear la fecha Unix a un formato legible
-function formatDate(unixTimestamp) {
-    const date = new Date(unixTimestamp * 1000);
-    return date.toLocaleDateString(); // Ajusta el formato según tus necesidades
+// Función para actualizar los controles de botones de paginación
+function updatePaginationButtons() {
+    // Desactivar el botón "Anterior" si estamos en la primera página
+    document.getElementById('prev-page').classList.toggle('disabled', currentPage === 1);
+    // Desactivar el botón "Siguiente" si estamos en la última página
+    document.getElementById('next-page').classList.toggle('disabled', currentPage === totalPages);
 }
+
+// Función para actualizar los números de paginación
+function updatePaginationNumbers() {
+    const paginationContainer = document.querySelector('.pagination-numbers');
+    paginationContainer.innerHTML = ''; // Limpiar los números de página previos
+
+    // Crear botones de paginación según el número total de páginas
+    for (let i = 1; i <= totalPages; i++) {
+        const pageItem = document.createElement('li');
+        pageItem.classList.add('page-item');
+
+        if (i === currentPage) {
+            pageItem.classList.add('active'); // Resaltar la página actual
+        }
+
+        const pageLink = document.createElement('a');
+        pageLink.classList.add('page-link');
+        pageLink.href = "#";
+        pageLink.textContent = i;
+
+        // Añadir un evento al hacer clic en cada número de página
+        pageLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            currentPage = i;
+            populateTable(); // Llenar la tabla con los datos de la página seleccionada
+            updatePaginationButtons(); // Actualizar estado de los botones de paginación
+            updatePaginationNumbers(); // Actualizar números de paginación
+        });
+
+        // Agregar el enlace a la lista de paginación
+        pageItem.appendChild(pageLink);
+        paginationContainer.appendChild(pageItem);
+    }
+}
+
+
+// Manejadores de eventos para los botones "Anterior" y "Siguiente"
+document.getElementById('prev-page').addEventListener('click', function(event) {
+    event.preventDefault();
+    if (currentPage > 1) {
+        currentPage--;
+        populateTable();
+        updatePaginationButtons();
+        updatePaginationNumbers();
+    }
+});
+
+document.getElementById('next-page').addEventListener('click', function(event) {
+    event.preventDefault();
+    if (currentPage < totalPages) {
+        currentPage++;
+        populateTable();
+        updatePaginationButtons();
+        updatePaginationNumbers();
+    }
+});

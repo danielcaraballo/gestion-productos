@@ -103,30 +103,33 @@
               </div>
             </div>
             <div class="card-footer d-flex align-items-center">
-              <p class="m-0 text-secondary">Showing <span>1</span> to
-                <span>8</span> of <span>16</span> entries
+              <p class="m-0 text-secondary">Mostrando de
+                <span id="start-entry">1</span> a
+                <span id="end-entry">8</span> de
+                <span id="total-entries">16</span> entradas
               </p>
               <ul class="pagination m-0 ms-auto">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                    <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                <!-- Botón "Anterior" -->
+                <li class="page-item" id="prev-page">
+                  <a class="page-link" href="#" aria-disabled="true">
+                    <!-- Icono de flecha izquierda -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
                       stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <path d="M15 6l-6 6l6 6" />
                     </svg>
-                    prev
+                    Anterior
                   </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item">
+
+                <!-- Aquí se agregarán los números de página dinámicamente -->
+                <span class="pagination-numbers"></span>
+
+                <!-- Botón "Siguiente" -->
+                <li class="page-item" id="next-page">
                   <a class="page-link" href="#">
-                    next
-                    <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+                    Siguiente
+                    <!-- Icono de flecha derecha -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
                       stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
