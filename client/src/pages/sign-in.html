@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Gestion de Productos</title>
+    <title>Gestion de Productos Tecnológicos OTIC</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- CSS files -->
     <link href="../assets/css/tabler.min.css" rel="stylesheet" />
@@ -36,6 +36,7 @@
             <img src="../../public/static/logo.svg" width="110" height="32" alt="LOGO" class="navbar-brand-image">
           </a>
         </div>
+        <h2 class="h text-center mb-4">Gestión de Productos Tecnologicos OTIC</h2>
         <div class="card card-md">
           <div class="card-body">
             <h2 class="h2 text-center mb-4">Iniciar sesión</h2>
@@ -46,7 +47,7 @@
                 </label>
                 <input id="username" type="text" class="form-control" placeholder="Ingrese su usuario" autocomplete="off" required>
               </div>
-              <div class="mb-2">
+              <div class="mb-3">
                 <label for="password" class="form-label">
                   Contraseña
                   <!-- <span class="form-label-description">
@@ -55,12 +56,24 @@
                 </label>
                 <div class="input-group input-group-flat">
                   <input id="password" type="password" class="form-control"  placeholder="Ingrese su contraseña"  autocomplete="off" required>
-                  <!-- OJITO NO FUNCIONA -->
-                  <!-- <span class="input-group-text">
-                    <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                  <!-- Ojito de ver contraseña -->
+                  <span class="input-group-text">
+                    <!-- Visible inicialmente -->
+                    <a href="#" class="link-secondary" title="Ver contraseña" data-bs-toggle="tooltip">
+                      <svg id="eye-open" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                      
+                      <!-- Oculto inicialmente -->
+                      <svg id="eye-closed" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M21 9c-2.4 2.667 -5.4 4 -9 4c-3.6 0 -6.6 -1.333 -9 -4" />
+                        <path d="M3 15l2.5 -3.8" />
+                        <path d="M21 14.976l-2.492 -3.776" />
+                        <path d="M9 17l.5 -4" />
+                        <path d="M15 17l-.5 -4" />
+                      </svg>
                     </a>
-                  </span> -->
+                  </span>
+                  
                 </div>
               </div>
               <div class="mb-2">
@@ -88,30 +101,13 @@
           <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
         </div>
       </div>
-    <!-- PIE DE PAGINA -->
-    <footer class="footer footer-transparent d-print-none">
-      <div class="container-xl">
-        <div class="row text-center align-items-center flex-row-reverse">
-          <div class="col-lg-auto ms-lg-auto">
-            <ul class="list-inline list-inline-dots mb-0">
-              <li class="list-inline-item">
-                v1.0.0-beta
-              </li>
-            </ul>
-          </div>
-          <div class="col-12 col-lg-auto mt-3 mt-lg-0">
-            <ul class="list-inline list-inline-dots mb-0">
-              <li class="list-inline-item">
-                Copyright &copy; 2024 Daniel Caraballo. All rights reserved.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer> 
+    <!-- Footer -->
+    <footer-component></footer-component>
     </div>
-    <script src="../assets/js/token.js" type="module"></script>
+    <!-- Scripts -->
+    <!-- <script src="../assets/js/token.js" type="module"></script> -->
     <script src="../assets/js/sign-in.js" type="module"></script>
+    <script src="../components/components.js" type="module" defer></script>
     <!-- Tabler Core -->
     <script src="../assets/js/tabler.min.js" defer></script>
     <script src="../assets/js/demo.min.js" defer></script>

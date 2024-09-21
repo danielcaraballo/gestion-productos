@@ -36,3 +36,28 @@ function loginUser(username, password) {
 
 // Configurar el evento de envío del formulario
 document.getElementById('form-signin').addEventListener('submit', handleFormSubmit);
+
+
+// Ojito de ver contraseña
+const togglePassword = document.querySelector('.link-secondary');
+const passwordInput = document.querySelector('#password');
+const eyeOpenIcon = document.querySelector('#eye-open');
+const eyeClosedIcon = document.querySelector('#eye-closed');
+
+// Añade el evento de click al ícono
+togglePassword.addEventListener('click', function (e) {
+    e.preventDefault(); // Evita que el enlace haga scroll a la parte superior de la página
+
+    // Cambia el tipo del input entre 'password' y 'text'
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+
+    // Alterna los íconos de ojo
+    if (type === 'password') {
+        eyeOpenIcon.style.display = 'block';
+        eyeClosedIcon.style.display = 'none';
+    } else {
+        eyeOpenIcon.style.display = 'none';
+        eyeClosedIcon.style.display = 'block';
+    }
+});
