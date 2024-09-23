@@ -55,6 +55,17 @@ class ProductoViewSet(viewsets.ModelViewSet):
     serializer_class = ProductoSerializer
 
 
+class ProductoEstatusView(APIView):
+    def get(self, request):
+        estatus = [
+            {'id': 1, 'nombre': 'Operativo'},
+            {'id': 2, 'nombre': 'Mantenimiento'},
+            {'id': 3, 'nombre': 'Inactivo'},
+            {'id': 4, 'nombre': 'Retirado'},
+        ]
+        return Response(estatus)
+
+
 class ProductoEstatusCountView(APIView):
     def get(self, request):
         data = {
@@ -64,6 +75,7 @@ class ProductoEstatusCountView(APIView):
             "retirado": Producto.objects.filter(estatus="Retirado").count(),
         }
         return Response(data)
+
 
 # ViewSets para tablas intermedias
 
