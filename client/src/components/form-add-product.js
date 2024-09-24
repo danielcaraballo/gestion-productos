@@ -69,10 +69,10 @@ class formAddProduct extends HTMLElement {
                     <div class="mb-3">
                         <label class="form-label">Estatus</label>
                         <select id="estatus" class="form-select">
-                        <!--<option value="1" selected>Operativo</option>
+                        <option value="1" selected>Operativo</option>
                         <option value="2">En Mantenimiento</option>
                         <option value="3">Inactivo</option>
-                        <option value="4">Retirado</option>-->
+                        <option value="4">Retirado</option>
                         </select> 
                     </div>
                     </div>
@@ -117,21 +117,9 @@ class formAddProduct extends HTMLElement {
                                     <option value="HTML">HTML</option>
                                     <option value="JavaScript">JavaScript</option>
                                     <option value="CSS">CSS</option>
-                                    <option value="jQuery">jQuery</option>
-                                    <option value="Bootstrap">Bootstrap</option>
-                                    <option value="Ruby">Ruby</option>
                                     <option value="Python">Python</option>
                                 </select>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Advanced select</label>
-                                <select type="text" class="form-select" id="select-users" value="">
-                                <option value="1">Chuck Tesla</option>
-                                <option value="2">Elon Musk</option>
-                                <option value="3">Paweł Kuna</option>
-                                <option value="4">Nikola Tesla</option>
-                            </select>
-                        </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -171,34 +159,39 @@ class formAddProduct extends HTMLElement {
         </div>
 
 
-            <script src="../assets/libs/tom-select/dist/js/tom-select.base.min.js" defer></script>
+        `;
+    }
 
-            <script>
-            document.addEventListener("DOMContentLoaded", function () {
-            var el;
-            window.TomSelect && (new TomSelect(el = document.getElementById('select-tags'), {
+    connectedCallback() {
+        // Aquí aseguramos que el Web Component está listo y se puede inicializar Tom Select
+        this.initializeTomSelect();
+    }
+
+    initializeTomSelect() {
+        const selectElement = this.querySelector('#select-tags');
+        if (window.TomSelect && selectElement) {
+            new TomSelect(selectElement, {
                 copyClassesToDropdown: false,
                 dropdownParent: '#tags-input',
                 controlInput: '<input>',
-                render:{
-                    item: function(data, escape) {
-                        if( data.customProperties ){
+                render: {
+                    item: function (data, escape) {
+                        if (data.customProperties) {
                             return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
                         }
                         return '<div>' + escape(data.text) + '</div>';
                     },
-                    option: function(data, escape){
-                        if( data.customProperties ){
+                    option: function (data, escape) {
+                        if (data.customProperties) {
                             return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
                         }
                         return '<div>' + escape(data.text) + '</div>';
-                    },
-                },
-            }));
-            });  
-            </script>
-        `;
+                    }
+                }
+            });
+        }
     }
 }
+
 
 customElements.define("form-add-product-component", formAddProduct);

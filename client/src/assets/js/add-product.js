@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Mostrar el primer paso al cargar el modal
-  showStep(currentStep);
+  showStep(currentStep = 2);
 });
 
 // Cargar los estatus desde la API
