@@ -1,7 +1,7 @@
 class formAddProduct extends HTMLElement {
-    constructor() {
-        super();
-        this.innerHTML = /*html*/ `
+  constructor() {
+    super();
+    this.innerHTML = /*html*/ `
             <div
             class="modal modal-blur fade"
             id="modal-report"
@@ -25,9 +25,9 @@ class formAddProduct extends HTMLElement {
                 <div id="step-1" class="step">
                 <div class="card-body">
                     <ul class="steps steps-blue steps-counter my-4">
-                    <li class="step-item active">Paso 1</li>
-                    <li class="step-item">Paso 2</li>
-                    <li class="step-item">Paso 3</li>
+                    <li class="step-item active">Información básica</li>
+                    <li class="step-item">Información tecnica</li>
+                    <li class="step-item">Solicitante y responsables</li>
                     </ul>
                 </div>
                 <div class="modal-body">
@@ -104,9 +104,9 @@ class formAddProduct extends HTMLElement {
                 <div id="step-2" class="step" style="display: none;">
                     <div class="card-body">
                         <ul class="steps steps-blue steps-counter my-4">
-                            <li class="step-item">Paso 1</li>
-                            <li class="step-item active">Paso 2</li>
-                            <li class="step-item">Paso 3</li>
+                            <li class="step-item">Información básica</li>
+                            <li class="step-item active">Información tecnica</li>
+                            <li class="step-item">Solicitante y responsables</li>
                         </ul>
                     </div>
                     <div class="modal-body">
@@ -114,11 +114,11 @@ class formAddProduct extends HTMLElement {
                             <div class="mb-3">
                                 <label class="form-label">Tecnologias</label>
                                 <select type="text" class="form-select" placeholder="Seleccione la tecnologia" id="select-tags" value="" multiple>
-                                    <option value="HTML">HTML</option>
-                                    <option value="JavaScript">JavaScript</option>
-                                    <option value="CSS">CSS</option>
-                                    <option value="jQuery">jQuery</option>
-                                    <option value="Python">Python</option>
+                                    <option value="Django">Django</option>
+                                    <option value="Django Rest Framework">Django Rest Framework</option>
+                                    <option value="React">React</option>
+                                    <option value="Next">Next</option>
+                                    <option value="Vue">Vue</option>
                                 </select>
                             </div>
                         </div>
@@ -129,28 +129,28 @@ class formAddProduct extends HTMLElement {
                     </div>
                 </div>
 
-                    <!-- Paso 3 - Responsables -->
+                    <!-- Paso 3 - Solicitante y Responsables -->
                     <div id="step-3" class="step" style="display: none;">
                     <div class="card-body">
                         <ul class="steps steps-blue steps-counter my-4">
-                        <li class="step-item">Paso 1</li>
-                        <li class="step-item">Paso 2</li>
-                        <li class="step-item active">Paso 3</li>
+                        <li class="step-item">Información básica</li>
+                        <li class="step-item">Información tecnica</li>
+                        <li class="step-item active">Solicitante y responsables</li>
                         </ul>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                        <label class="form-label">Responsable</label>
-                        <input type="text" id="responsable" class="form-control" placeholder="Nombre del responsable" />
+                        <label class="form-label">Solicitante</label>
+                        <input type="text" id="solicitante" class="form-control" placeholder="Seleccione el solicitante" />
                         </div>
                         <div class="mb-3">
-                        <label class="form-label">Solicitante</label>
-                        <input type="text" id="solicitante" class="form-control" placeholder="Nombre del solicitante" />
+                        <label class="form-label">Responsable</label>
+                        <input type="text" id="responsable" class="form-control" placeholder="Selecciones los responsables" />
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" id="prevStep3" style="display: none;">Anterior</button>
-                        <button type="submit" class="btn btn-success ms-auto">Agregar Producto</button>
+                        <button type="submit" class="btn btn-success ms-auto">Agregar producto</button>
                     </div>
                     </div>
                     
@@ -161,30 +161,30 @@ class formAddProduct extends HTMLElement {
 
         `;
 
-        this.initializeTomSelect(); // Llamamos la función de inicialización al crear el componente
-    }
+    this.initializeTomSelect(); // Llamamos la función de inicialización al crear el componente
+  }
 
-    initializeTomSelect() {
-        // Nos aseguramos de que Tom Select esté disponible
-        document.addEventListener("DOMContentLoaded", () => {
-            const el = document.getElementById('select-tags');
-            if (window.TomSelect && el) {
-                new TomSelect(el, {
-                    copyClassesToDropdown: false,
-                    dropdownParent: document.getElementById('tags-input'),
-                    controlInput: '<input>',
-                    render: {
-                        item: function(data, escape) {
-                            return `<div>${escape(data.text)}</div>`;
-                        },
-                        option: function(data, escape) {
-                            return `<div>${escape(data.text)}</div>`;
-                        },
-                    },
-                });
-            }
+  initializeTomSelect() {
+    // Nos aseguramos de que Tom Select esté disponible
+    document.addEventListener("DOMContentLoaded", () => {
+      const el = document.getElementById("select-tags");
+      if (window.TomSelect && el) {
+        new TomSelect(el, {
+          copyClassesToDropdown: false,
+          dropdownParent: document.getElementById("tags-input"),
+          controlInput: "<input>",
+          render: {
+            item: function (data, escape) {
+              return `<div>${escape(data.text)}</div>`;
+            },
+            option: function (data, escape) {
+              return `<div>${escape(data.text)}</div>`;
+            },
+          },
         });
-    }
+      }
+    });
+  }
 }
 
 customElements.define("form-add-product-component", formAddProduct);
