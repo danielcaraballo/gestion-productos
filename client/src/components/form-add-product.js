@@ -111,12 +111,13 @@ class formAddProduct extends HTMLElement {
                     </div>
                     <div class="modal-body">
                         <div class="col-lg-12">
-                            <div id="tags-input" class="mb-3">
-                                <label class="form-label">Tecnologías</label>
-                                <select type="text" class="form-select" id="select-tags" value="" multiple>
+                            <div class="mb-3">
+                                <label class="form-label">Tecnologias</label>
+                                <select type="text" class="form-select" placeholder="Seleccione la tecnologia" id="select-tags" value="" multiple>
                                     <option value="HTML">HTML</option>
                                     <option value="JavaScript">JavaScript</option>
                                     <option value="CSS">CSS</option>
+                                    <option value="jQuery">jQuery</option>
                                     <option value="Python">Python</option>
                                 </select>
                             </div>
@@ -158,40 +159,32 @@ class formAddProduct extends HTMLElement {
             </div>
         </div>
 
-
         `;
-    }
 
-    connectedCallback() {
-        // Aquí aseguramos que el Web Component está listo y se puede inicializar Tom Select
-        this.initializeTomSelect();
+        this.initializeTomSelect(); // Llamamos la función de inicialización al crear el componente
     }
 
     initializeTomSelect() {
-        const selectElement = this.querySelector('#select-tags');
-        if (window.TomSelect && selectElement) {
-            new TomSelect(selectElement, {
-                copyClassesToDropdown: false,
-                dropdownParent: '#tags-input',
-                controlInput: '<input>',
-                render: {
-                    item: function (data, escape) {
-                        if (data.customProperties) {
-                            return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
-                        }
-                        return '<div>' + escape(data.text) + '</div>';
+        // Nos aseguramos de que Tom Select esté disponible
+        document.addEventListener("DOMContentLoaded", () => {
+            const el = document.getElementById('select-tags');
+            if (window.TomSelect && el) {
+                new TomSelect(el, {
+                    copyClassesToDropdown: false,
+                    dropdownParent: document.getElementById('tags-input'),
+                    controlInput: '<input>',
+                    render: {
+                        item: function(data, escape) {
+                            return `<div>${escape(data.text)}</div>`;
+                        },
+                        option: function(data, escape) {
+                            return `<div>${escape(data.text)}</div>`;
+                        },
                     },
-                    option: function (data, escape) {
-                        if (data.customProperties) {
-                            return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
-                        }
-                        return '<div>' + escape(data.text) + '</div>';
-                    }
-                }
-            });
-        }
+                });
+            }
+        });
     }
 }
-
 
 customElements.define("form-add-product-component", formAddProduct);
