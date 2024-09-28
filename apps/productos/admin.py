@@ -3,11 +3,35 @@ from .models import (Categoria, Tecnologia, Solicitante, Responsable, ServidorWe
                      Version, Producto, TecnologiaProducto, ResponsableProducto, Infraestructura)
 
 
+# Inline para manejar las tecnologías de un producto
+class TecnologiaInline(admin.TabularInline):
+    model = TecnologiaProducto  # Usar la tabla intermedia
+    extra = 0  # Espacio adicional para añadir nuevas tecnologías
+
+
+# Inline para manejar la infraestructura de un producto
+class InfraestructuraInline(admin.TabularInline):
+    model = Infraestructura  # Usar la tabla intermedia
+    extra = False  # Espacio adicional
+
+
+# Inline para manejar los responsables de un producto
+class ResponsableInline(admin.TabularInline):
+    model = ResponsableProducto
+    extra = 0
+
+
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'descripcion',
-                    'direccion_url', 'estatus', 'categoria')
+    list_display = ('nombre', 'categoria', 'estatus', 'direccion_url')
     search_fields = ('nombre', 'descripcion')
     list_filter = ('estatus', 'categoria')
+    inlines = [TecnologiaInline, InfraestructuraInline,
+               ResponsableInline]  # Agregar inlines
+
+
+class TecnologiaAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'tipo', 'lenguaje', 'version')
+    search_fields = ('nombre',)  # Agregar esto para la búsqueda en tecnologías
 
 
 # Modelo Producto con la configuración personalizada

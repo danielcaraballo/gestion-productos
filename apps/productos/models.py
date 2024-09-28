@@ -3,10 +3,10 @@ from django.db import models
 # Opciones de Estatus
 
 ESTATUS_CHOICES = [
-    (1, 'Operativo'),
-    (2, 'Mantenimiento'),
-    (3, 'Inactivo'),
-    (4, 'Retirado'),
+    ('Operativo', 'Operativo'),
+    ('Mantenimiento', 'Mantenimiento'),
+    ('Inactivo', 'Inactivo'),
+    ('Retirado', 'Retirado'),
 ]
 
 # Definicion de Entidades
