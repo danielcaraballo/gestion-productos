@@ -1,7 +1,13 @@
 # Entorno virtual
 venv/
+.env
 
 # Archivos y carpetas generados por Python
 __pycache__/
 *.pyc
 *.pyo
+
+# Dependencias
+node_modules/
+
+db.sqlite3

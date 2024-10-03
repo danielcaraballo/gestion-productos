@@ -43,9 +43,20 @@ class VersionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductoSerializer(serializers.ModelSerializer):
+    categoria = CategoriaSerializer()
+    tecnologias = serializers.SerializerMethodField()
+
     class Meta:
         model = Producto
         fields = '__all__'
+
+    def get_tecnologias(self, obj):
+        # Obtén todas las instancias de TecnologiaProducto relacionadas con el producto
+        tecnologias_productos = TecnologiaProducto.objects.filter(producto=obj)
+        # Serializa solo las tecnologías de cada TecnologiaProducto
+        tecnologias = [tp.tecnologia for tp in tecnologias_productos]
+        serializer = TecnologiaSerializer(tecnologias, many=True)
+        return serializer.data
 
 # Definicion de tablas intermedias
 
@@ -58,6 +69,7 @@ class TecnologiaProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = TecnologiaProducto
         fields = '__all__'
+
 
 class ResponsableProductoSerializer(serializers.ModelSerializer):
     producto = ProductoSerializer(read_only=True)

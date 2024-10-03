@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Gestion de Productos Tecnológicos</title>
+  <link rel="icon" type="image/x-icon" href="../../public/static/favicon.svg">
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- CSS files -->
+  <link href="../assets/css/tabler.min.css" rel="stylesheet" />
+  <link href="../assets/css/tabler-flags.min.css" rel="stylesheet" />
+  <link href="../assets/css/tabler-payments.min.css" rel="stylesheet" />
+  <link href="../assets/css/tabler-vendors.min.css" rel="stylesheet" />
+  <link href="../assets/css/demo.min.css" rel="stylesheet" />
+  <style>
+    @import url('https://rsms.me/inter/inter.css');
+
+    :root {
+      --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+    }
+
+    body {
+      font-feature-settings: "cv03", "cv04", "cv11";
+    }
+  </style>
+</head>
+
+<body>
+  <script src="../assets/js/demo-theme.min.js"></script>
+  <div class="page">
+    <!-- Navbar -->
+    <navbar-component></navbar-component>
+    <div class="page-wrapper">
+      <!-- Page header -->
+      <div class="page-header d-print-none text-white">
+        <div class="container-xl">
+          <div class="row g-2 align-items-center">
+            <div class="col">
+              <!-- Page pre-title -->
+              <div class="page-pretitle">
+                Vista
+              </div>
+              <h2 class="page-title">
+                Dashboard
+              </h2>
+            </div>
+            <!-- Page title actions -->
+            <div class="col-auto ms-auto d-print-none">
+              <div class="btn-list">
+                <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
+                  data-bs-target="#modal-report">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-file-analytics">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                    <path d="M9 17l0 -5" />
+                    <path d="M12 17l0 -1" />
+                    <path d="M15 17l0 -3" />
+                  </svg>
+                  Generar reporte
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Page body -->
+      <div class="page-body">
+        <div class="container-xl">
+          <div class="row row-deck row-cards">
+            <div class="col-12">
+              <div class="row row-cards">
+                <!-- Contador: Productos Operativos -->
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-green text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                              <path d="M5 12l5 5l10 -10" />
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div id="contador-operativos" class="font-weight-medium">
+                            0 Productos
+                          </div>
+                          <div class="text-secondary">
+                            Operativos
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Contador: Productos en Mantenimiento -->
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-azure text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-refresh">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                              <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+                              <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div id="contador-mantenimiento" class="font-weight-medium">
+                            0 Productos
+                          </div>
+                          <div class="text-secondary">
+                            En Mantenimiento
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Contador: Productos Inactivos -->
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-red text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-down">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                              <path d="M12 5l0 14" />
+                              <path d="M18 13l-6 6" />
+                              <path d="M6 13l6 6" />
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div id="contador-inactivos" class="font-weight-medium">
+                            0 Productos
+                          </div>
+                          <div class="text-secondary">
+                            Inactivos
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Contador: Productos Retirados -->
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-blue text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-archive">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                              <path
+                                d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                              <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+                              <path d="M10 12l4 0" />
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div id="contador-retirados" class="font-weight-medium">
+                            0 Productos
+                          </div>
+                          <div class="text-secondary">
+                            Retirados
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer-component></footer-component>
+  </div>
+  </div>
+  <!-- Scripts -->
+  <script src="../assets/js/auth.js" type="module"></script>
+  <script src="../assets/js/dashboard.js" type="module"></script>
+  <script src="../components/components.js" type="module" defer></script>
+  <!-- Tabler Core -->
+  <script src="../assets/js/tabler.min.js" defer></script>
+  <script src="../assets/js/demo.min.js" defer></script>
+</body>
