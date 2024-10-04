@@ -1,13 +1,19 @@
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import (Categoria, Tecnologia, Solicitante, Responsable, ServidorWeb, TipoBaseDatos, BaseDatos, Version,
-                     Producto,  TecnologiaProducto, ResponsableProducto, Infraestructura)
-from .serializers import (CategoriaSerializer, TecnologiaSerializer, SolicitanteSerializer, ResponsableSerializer,
-                          ServidorWebSerializer, TipoBaseDatosSerializer, BaseDatosSerializer, VersionSerializer,
-                          ProductoSerializer, TecnologiaProductoSerializer, ResponsableProductoSerializer, InfraestructuraSerializer)
+from .models import (Estatus, Categoria, EnfoqueTecnologia, LenguajeProgramacion, Tecnologia,
+                     SubDependencia, Dependencia, Solicitante, RolResponsable, Responsable,
+                     ServidorWeb, TipoBaseDatos, BaseDatos, Producto,  TecnologiaProducto,
+                     ResponsableProducto, Infraestructura)
+from .serializers import (EstatusSerializer, CategoriaSerializer, EnfoqueTecnologiaSerializer, LenguajeProgramacionSerializer,
+                          TecnologiaSerializer, SubDependenciaSerializer, DependenciaSerializer, SolicitanteSerializer, RolResponsableSerializer, ResponsableSerializer, ServidorWebSerializer, TipoBaseDatosSerializer,
+                          BaseDatosSerializer, ProductoSerializer, TecnologiaProductoSerializer, ResponsableProductoSerializer,
+                          InfraestructuraSerializer)
 
-# Create your views here. ViewSets para los modelos
+
+class EstatusViewSet(viewsets.ModelViewSet):
+    queryset = Estatus.objects.all()
+    serializer_class = EstatusSerializer
 
 
 class CategoriaViewSet(viewsets.ModelViewSet):
@@ -15,14 +21,39 @@ class CategoriaViewSet(viewsets.ModelViewSet):
     serializer_class = CategoriaSerializer
 
 
+class EnfoqueTecnologiaViewSet(viewsets.ModelViewSet):
+    queryset = EnfoqueTecnologia.objects.all()
+    serializer_class = EnfoqueTecnologiaSerializer
+
+
+class LenguajeProgramacionViewSet(viewsets.ModelViewSet):
+    queryset = LenguajeProgramacion.objects.all()
+    serializer_class = LenguajeProgramacionSerializer
+
+
 class TecnologiaViewSet(viewsets.ModelViewSet):
     queryset = Tecnologia.objects.all()
     serializer_class = TecnologiaSerializer
 
 
+class SubDependenciaViewSet(viewsets.ModelViewSet):
+    queryset = SubDependencia.objects.all()
+    serializer_class = SubDependenciaSerializer
+
+
+class DependenciaViewSet(viewsets.ModelViewSet):
+    queryset = Dependencia.objects.all()
+    serializer_class = DependenciaSerializer
+
+
 class SolicitanteViewSet(viewsets.ModelViewSet):
     queryset = Solicitante.objects.all()
     serializer_class = SolicitanteSerializer
+
+
+class RolResponsableViewSet(viewsets.ModelViewSet):
+    queryset = RolResponsable.objects.all()
+    serializer_class = RolResponsableSerializer
 
 
 class ResponsableViewSet(viewsets.ModelViewSet):
@@ -45,11 +76,6 @@ class BaseDatosViewSet(viewsets.ModelViewSet):
     serializer_class = BaseDatosSerializer
 
 
-class VersionViewSet(viewsets.ModelViewSet):
-    queryset = Version.objects.all()
-    serializer_class = VersionSerializer
-
-
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
@@ -57,24 +83,22 @@ class ProductoViewSet(viewsets.ModelViewSet):
 
 class ProductoEstatusView(APIView):
     def get(self, request):
-        estatus = [
-            {'id': 1, 'nombre': 'Operativo'},
-            {'id': 2, 'nombre': 'Mantenimiento'},
-            {'id': 3, 'nombre': 'Inactivo'},
-            {'id': 4, 'nombre': 'Retirado'},
-        ]
+        estatus = Estatus.objects.all().values('id', 'nombre')
         return Response(estatus)
 
 
 class ProductoEstatusCountView(APIView):
     def get(self, request):
-        data = {
-            "operativo": Producto.objects.filter(estatus="Operativo").count(),
-            "mantenimiento": Producto.objects.filter(estatus="Mantenimiento").count(),
-            "inactivo": Producto.objects.filter(estatus="Inactivo").count(),
-            "retirado": Producto.objects.filter(estatus="Retirado").count(),
-        }
-        return Response(data)
+        try:
+            data = {
+                "operativo": Producto.objects.filter(estatus__nombre="Operativo").count(),
+                "mantenimiento": Producto.objects.filter(estatus__nombre="Mantenimiento").count(),
+                "inactivo": Producto.objects.filter(estatus__nombre="Inactivo").count(),
+                "retirado": Producto.objects.filter(estatus__nombre="Retirado").count(),
+            }
+            return Response(data)
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
 
 
 # ViewSets para tablas intermedias

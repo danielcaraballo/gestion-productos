@@ -1,21 +1,20 @@
 from django.contrib import admin
-from .models import (Categoria, Tecnologia, Solicitante, Responsable, ServidorWeb, TipoBaseDatos, BaseDatos,
-                     Version, Producto, TecnologiaProducto, ResponsableProducto, Infraestructura)
+from .models import (Estatus, Categoria, EnfoqueTecnologia, LenguajeProgramacion, Tecnologia,
+                     SubDependencia, Dependencia, Solicitante, RolResponsable, Responsable,
+                     ServidorWeb, TipoBaseDatos, BaseDatos, Producto, TecnologiaProducto,
+                     ResponsableProducto, Infraestructura)
 
 
-# Inline para manejar las tecnologías de un producto
 class TecnologiaInline(admin.TabularInline):
-    model = TecnologiaProducto  # Usar la tabla intermedia
-    extra = 0  # Espacio adicional para añadir nuevas tecnologías
+    model = TecnologiaProducto
+    extra = 0
 
 
-# Inline para manejar la infraestructura de un producto
 class InfraestructuraInline(admin.TabularInline):
-    model = Infraestructura  # Usar la tabla intermedia
-    extra = False  # Espacio adicional
+    model = Infraestructura
+    extra = 0
 
 
-# Inline para manejar los responsables de un producto
 class ResponsableInline(admin.TabularInline):
     model = ResponsableProducto
     extra = 0
@@ -26,26 +25,25 @@ class ProductoAdmin(admin.ModelAdmin):
     search_fields = ('nombre', 'descripcion')
     list_filter = ('estatus', 'categoria')
     inlines = [TecnologiaInline, InfraestructuraInline,
-               ResponsableInline]  # Agregar inlines
+               ResponsableInline]
 
 
-class TecnologiaAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'tipo', 'lenguaje', 'version')
-    search_fields = ('nombre',)  # Agregar esto para la búsqueda en tecnologías
-
-
-# Modelo Producto con la configuración personalizada
 admin.site.register(Producto, ProductoAdmin)
 
 # Register your models here.
+admin.site.register(Estatus)
 admin.site.register(Categoria)
+admin.site.register(EnfoqueTecnologia)
+admin.site.register(LenguajeProgramacion)
 admin.site.register(Tecnologia)
+admin.site.register(SubDependencia)
+admin.site.register(Dependencia)
 admin.site.register(Solicitante)
+admin.site.register(RolResponsable)
 admin.site.register(Responsable)
 admin.site.register(ServidorWeb)
 admin.site.register(TipoBaseDatos)
 admin.site.register(BaseDatos)
-admin.site.register(Version)
 admin.site.register(TecnologiaProducto)
 admin.site.register(ResponsableProducto)
 admin.site.register(Infraestructura)
