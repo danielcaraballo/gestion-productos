@@ -63,23 +63,9 @@ class Tecnologia(models.Model):
         verbose_name_plural = "Tecnologias"
 
 
-class SubDependencia(models.Model):
-    nombre = models.CharField(
-        max_length=100, verbose_name="Nombre de la Sub Dependencia")
-
-    def __str__(self) -> str:
-        return self.nombre
-
-    class Meta:
-        verbose_name = "Sub Dependencia"
-        verbose_name_plural = "Sub Dependencias"
-
-
 class Dependencia(models.Model):
     nombre = models.CharField(
         max_length=100, verbose_name="Nombre de la Dependencia")
-    sub_dependencia = models.ForeignKey(
-        SubDependencia, on_delete=models.PROTECT)
 
     def __str__(self) -> str:
         return self.nombre
@@ -89,12 +75,26 @@ class Dependencia(models.Model):
         verbose_name_plural = "Dependencias"
 
 
+class SubDependencia(models.Model):
+    nombre = models.CharField(
+        max_length=100, verbose_name="Nombre de la SubDependencia")
+    dependencia = models.ForeignKey(Dependencia, on_delete=models.CASCADE, related_name='sub_dependencias')
+
+    def __str__(self) -> str:
+        return self.nombre
+
+    class Meta:
+        verbose_name = "SubDependencia"
+        verbose_name_plural = "SubDependencias"
+
+
 class Solicitante(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     cargo = models.CharField(max_length=100)
     contacto = models.CharField(max_length=100)
-    dependencia = models.ForeignKey(Dependencia, on_delete=models.PROTECT)
+    dependencia = models.ForeignKey(Dependencia, on_delete=models.PROTECT, related_name='solicitantes')
+    sub_dependencia = models.ForeignKey(SubDependencia, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self) -> str:
         return f"{self.nombre} {self.apellido} - {self.dependencia}"
