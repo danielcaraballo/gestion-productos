@@ -78,7 +78,8 @@ class Dependencia(models.Model):
 class SubDependencia(models.Model):
     nombre = models.CharField(
         max_length=100, verbose_name="Nombre de la SubDependencia")
-    dependencia = models.ForeignKey(Dependencia, on_delete=models.CASCADE, related_name='sub_dependencias')
+    dependencia = models.ForeignKey(
+        Dependencia, on_delete=models.CASCADE, related_name='sub_dependencias')
 
     def __str__(self) -> str:
         return self.nombre
@@ -93,8 +94,10 @@ class Solicitante(models.Model):
     apellido = models.CharField(max_length=50)
     cargo = models.CharField(max_length=100)
     contacto = models.CharField(max_length=100)
-    dependencia = models.ForeignKey(Dependencia, on_delete=models.PROTECT, related_name='solicitantes')
-    sub_dependencia = models.ForeignKey(SubDependencia, on_delete=models.PROTECT, null=True, blank=True)
+    dependencia = models.ForeignKey(
+        Dependencia, on_delete=models.PROTECT, related_name='solicitantes')
+    sub_dependencia = models.ForeignKey(
+        SubDependencia, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self) -> str:
         return f"{self.nombre} {self.apellido} - {self.dependencia}"
@@ -127,43 +130,6 @@ class Responsable(models.Model):
     class Meta:
         verbose_name = "Responsable"
         verbose_name_plural = "Responsables"
-
-
-class ServidorWeb(models.Model):
-    direccion_ip = models.GenericIPAddressField()
-    estatus = models.ForeignKey(Estatus, on_delete=models.PROTECT)
-
-    def __str__(self) -> str:
-        return f"IP:{self.direccion_ip} ({self.estatus})"
-
-    class Meta:
-        verbose_name = "Servidor Web"
-        verbose_name_plural = "Servidores Web"
-
-
-class TipoBaseDatos(models.Model):
-    nombre = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.nombre
-
-    class Meta:
-        verbose_name = "Tipo de Base de Datos"
-        verbose_name_plural = "Tipos de Bases de Datos"
-
-
-class BaseDatos(models.Model):
-    nombre = models.CharField(max_length=100)
-    direccion_ip = models.GenericIPAddressField()
-    tipo = models.ForeignKey(
-        'TipoBaseDatos', on_delete=models.PROTECT, related_name='basesdatos')
-
-    def __str__(self) -> str:
-        return f"{self.nombre} (IP:{self.direccion_ip})"
-
-    class Meta:
-        verbose_name = "Base de Datos"
-        verbose_name_plural = "Bases de Datos"
 
 
 class Producto(models.Model):
@@ -208,16 +174,3 @@ class ResponsableProducto(models.Model):
     class Meta:
         verbose_name = "Responsable del Producto"
         verbose_name_plural = "Responsables de los Productos"
-
-
-class Infraestructura(models.Model):
-    producto = models.ForeignKey(Producto, on_delete=models.PROTECT)
-    servidor_web = models.ForeignKey(ServidorWeb, on_delete=models.PROTECT)
-    base_datos = models.ForeignKey(BaseDatos, on_delete=models.PROTECT)
-
-    def __str__(self):
-        return f"{self.producto.nombre} - {self.servidor_web.direccion_ip} - {self.base_datos.nombre}"
-
-    class Meta:
-        verbose_name = "Infraestructura del Producto"
-        verbose_name_plural = "Infraestructuras de los Productos"

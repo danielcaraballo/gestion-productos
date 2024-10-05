@@ -1,9 +1,7 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 from .views import (EstatusViewSet, CategoriaViewSet, EnfoqueTecnologiaViewSet, LenguajeProgramacionViewSet, TecnologiaViewSet,
-                    SubDependenciaViewSet, DependenciaViewSet, SolicitanteViewSet, RolResponsableViewSet, ResponsableViewSet,
-                    ServidorWebViewSet, TipoBaseDatosViewSet, BaseDatosViewSet, ProductoViewSet, ProductoEstatusView,
-                    ProductoEstatusCountView, TecnologiaProductoViewSet, ResponsableProductoViewSet, InfraestructuraViewSet)
+                    SubDependenciaViewSet, DependenciaViewSet, SolicitanteViewSet, RolResponsableViewSet, ResponsableViewSet,ProductoViewSet, ProductoEstatusView, ProductoEstatusCountView, TecnologiaProductoViewSet, ResponsableProductoViewSet)
 
 router = DefaultRouter()
 router.register(r'estatus', EstatusViewSet)
@@ -16,13 +14,9 @@ router.register(r'dependencias', DependenciaViewSet)
 router.register(r'solicitantes', SolicitanteViewSet)
 router.register(r'roles-responsables', RolResponsableViewSet)
 router.register(r'responsables', ResponsableViewSet)
-router.register(r'servidores-web', ServidorWebViewSet)
-router.register(r'tipos-bases-datos', TipoBaseDatosViewSet)
-router.register(r'bases-datos', BaseDatosViewSet)
 router.register(r'productos', ProductoViewSet)
 router.register(r'tecnologias-productos', TecnologiaProductoViewSet)
 router.register(r'responsables-productos', ResponsableProductoViewSet)
-router.register(r'infraestructuras', InfraestructuraViewSet)
 
 urlpatterns = router.urls + [
     path('producto-estatus/', ProductoEstatusView.as_view(),

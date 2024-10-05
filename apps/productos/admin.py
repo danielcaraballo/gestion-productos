@@ -1,17 +1,11 @@
 from django.contrib import admin
 from .models import (Estatus, Categoria, EnfoqueTecnologia, LenguajeProgramacion, Tecnologia,
-                     SubDependencia, Dependencia, Solicitante, RolResponsable, Responsable,
-                     ServidorWeb, TipoBaseDatos, BaseDatos, Producto, TecnologiaProducto,
-                     ResponsableProducto, Infraestructura)
+                     SubDependencia, Dependencia, Solicitante, RolResponsable, Responsable, 
+                     Producto, TecnologiaProducto, ResponsableProducto)
 
 
 class TecnologiaInline(admin.TabularInline):
     model = TecnologiaProducto
-    extra = 0
-
-
-class InfraestructuraInline(admin.TabularInline):
-    model = Infraestructura
     extra = 0
 
 
@@ -24,8 +18,7 @@ class ProductoAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'categoria', 'estatus', 'direccion_url')
     search_fields = ('nombre', 'descripcion')
     list_filter = ('estatus', 'categoria')
-    inlines = [TecnologiaInline, InfraestructuraInline,
-               ResponsableInline]
+    inlines = [TecnologiaInline, ResponsableInline]
 
 
 admin.site.register(Producto, ProductoAdmin)
@@ -41,9 +34,5 @@ admin.site.register(Dependencia)
 admin.site.register(Solicitante)
 admin.site.register(RolResponsable)
 admin.site.register(Responsable)
-admin.site.register(ServidorWeb)
-admin.site.register(TipoBaseDatos)
-admin.site.register(BaseDatos)
 admin.site.register(TecnologiaProducto)
 admin.site.register(ResponsableProducto)
-admin.site.register(Infraestructura)

@@ -1,8 +1,7 @@
 from rest_framework import serializers
 from .models import (Estatus, Categoria, EnfoqueTecnologia, LenguajeProgramacion,  Tecnologia,
                      SubDependencia, Dependencia, Solicitante, RolResponsable, Responsable,
-                     ServidorWeb, TipoBaseDatos, BaseDatos, Producto, TecnologiaProducto,
-                     ResponsableProducto, Infraestructura)
+                     Producto, TecnologiaProducto, ResponsableProducto)
 
 
 class EstatusSerializer(serializers.ModelSerializer):
@@ -74,26 +73,6 @@ class ResponsableSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ServidorWebSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ServidorWeb
-        fields = '__all__'
-
-
-class TipoBaseDatosSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TipoBaseDatos
-        fields = '__all__'
-
-
-class BaseDatosSerializer(serializers.ModelSerializer):
-    tipo = TipoBaseDatosSerializer()
-
-    class Meta:
-        model = BaseDatos
-        fields = '__all__'
-
-
 class ProductoSerializer(serializers.ModelSerializer):
     estatus = EstatusSerializer()
     categoria = CategoriaSerializer()
@@ -137,20 +116,4 @@ class ResponsableProductoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ResponsableProducto
-        fields = '__all__'
-
-
-class InfraestructuraSerializer(serializers.ModelSerializer):
-    producto = ProductoSerializer(read_only=True)
-    producto_id = serializers.PrimaryKeyRelatedField(
-        queryset=Producto.objects.all(), source='producto', write_only=True)
-    servidor_web = ServidorWebSerializer(read_only=True)
-    servidor_web_id = serializers.PrimaryKeyRelatedField(
-        queryset=ServidorWeb.objects.all(), source='servidor_web', write_only=True)
-    base_datos = BaseDatosSerializer(read_only=True)
-    base_datos_id = serializers.PrimaryKeyRelatedField(
-        queryset=BaseDatos.objects.all(), source='base_datos', write_only=True)
-
-    class Meta:
-        model = Infraestructura
         fields = '__all__'

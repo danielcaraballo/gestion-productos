@@ -3,12 +3,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import (Estatus, Categoria, EnfoqueTecnologia, LenguajeProgramacion, Tecnologia,
                      SubDependencia, Dependencia, Solicitante, RolResponsable, Responsable,
-                     ServidorWeb, TipoBaseDatos, BaseDatos, Producto,  TecnologiaProducto,
-                     ResponsableProducto, Infraestructura)
+                     Producto,  TecnologiaProducto, ResponsableProducto)
 from .serializers import (EstatusSerializer, CategoriaSerializer, EnfoqueTecnologiaSerializer, LenguajeProgramacionSerializer,
-                          TecnologiaSerializer, SubDependenciaSerializer, DependenciaSerializer, SolicitanteSerializer, RolResponsableSerializer, ResponsableSerializer, ServidorWebSerializer, TipoBaseDatosSerializer,
-                          BaseDatosSerializer, ProductoSerializer, TecnologiaProductoSerializer, ResponsableProductoSerializer,
-                          InfraestructuraSerializer)
+                          TecnologiaSerializer, SubDependenciaSerializer, DependenciaSerializer, SolicitanteSerializer, RolResponsableSerializer, ResponsableSerializer, ProductoSerializer, TecnologiaProductoSerializer, ResponsableProductoSerializer)
 
 
 class EstatusViewSet(viewsets.ModelViewSet):
@@ -61,21 +58,6 @@ class ResponsableViewSet(viewsets.ModelViewSet):
     serializer_class = ResponsableSerializer
 
 
-class ServidorWebViewSet(viewsets.ModelViewSet):
-    queryset = ServidorWeb.objects.all()
-    serializer_class = ServidorWebSerializer
-
-
-class TipoBaseDatosViewSet(viewsets.ModelViewSet):
-    queryset = TipoBaseDatos.objects.all()
-    serializer_class = TipoBaseDatosSerializer
-
-
-class BaseDatosViewSet(viewsets.ModelViewSet):
-    queryset = BaseDatos.objects.all()
-    serializer_class = BaseDatosSerializer
-
-
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
@@ -112,8 +94,3 @@ class TecnologiaProductoViewSet(viewsets.ModelViewSet):
 class ResponsableProductoViewSet(viewsets.ModelViewSet):
     queryset = ResponsableProducto.objects.all()
     serializer_class = ResponsableProductoSerializer
-
-
-class InfraestructuraViewSet(viewsets.ModelViewSet):
-    queryset = Infraestructura.objects.all()
-    serializer_class = InfraestructuraSerializer
