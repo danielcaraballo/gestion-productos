@@ -114,3 +114,42 @@ function UserProfile() {
 }
 
 UserProfile();
+
+// Función para manejar la actualización del perfil
+function updateProfile(event) {
+  event.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+
+  // Obtener los datos del formulario
+  const updatedProfile = {
+    first_name: document.getElementById('first_name').value = profileData.first_name || "Usuario",
+    last_name: document.getElementById('last_name').value = profileData.last_name || "",
+    email: document.getElementById('email').value
+  };
+
+  // Enviar los datos actualizados a la API
+  axios.put(`${CONFIG.API_BASE_URL}/usuarios/profile/`, updatedProfile, {
+    headers: {
+      'Authorization': `Bearer ${getToken()}`,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    alert('Perfil actualizado correctamente');
+    // Aquí puedes redirigir o actualizar la página si es necesario
+  })
+  .catch(error => {
+    console.error('Error al actualizar el perfil:', error);
+    if (error.response && error.response.status === 400) {
+      alert('Error al actualizar el perfil. Verifica los datos ingresados.');
+    }
+  });
+}
+
+// Botón "Guardar" directamente vinculado
+document.getElementById('save-button').addEventListener('click', updateProfile);
+
+// Lógica para el botón de cancelar (redirigir al dashboard)
+document.getElementById('cancel-button').addEventListener('click', function(event) {
+  event.preventDefault();
+  window.location.href = '../pages/dashboard.html';  // Redirige al dashboard o donde prefieras
+});

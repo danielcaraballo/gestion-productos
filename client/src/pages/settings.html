@@ -70,11 +70,11 @@
                   <div class="row g-3">
                     <div class="col-md">
                       <div class="form-label">Nombre</div>
-                      <input type="text" class="form-control" value="Nombre" />
+                      <input id="first_name" type="text" class="form-control" placeholder="Tu nombre" required />
                     </div>
                     <div class="col-md">
                       <div class="form-label">Apellido</div>
-                      <input type="text" class="form-control" value="Apellido" />
+                      <input id="last_name" type="text" class="form-control" placeholder="Tu apellido" required />
                     </div>
                   </div>
                   <h3 class="card-title mt-4">Correo electronico</h3>
@@ -85,7 +85,7 @@
                   <div>
                     <div class="row g-2">
                       <div class="col-auto">
-                        <input type="text" class="form-control w-auto" value="Correo electronico" />
+                        <input id="email" type="text" class="form-control w-auto" placeholder="Correo electrónico" />
                       </div>
                       <div class="col-auto">
                         <a href="#" class="btn"> Cambiar </a>
@@ -103,8 +103,8 @@
                 </div>
                 <div class="card-footer bg-transparent mt-auto">
                   <div class="btn-list justify-content-end">
-                    <a href="#" class="btn"> Cancelar </a>
-                    <a href="#" class="btn btn-primary"> Guardar </a>
+                    <a id="cancel-button" href="#" class="btn"> Cancelar </a>
+                    <a id="save-button" href="#" class="btn btn-primary"> Guardar </a>
                   </div>
                 </div>
               </div>
