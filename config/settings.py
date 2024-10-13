@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 BASE_APPS = [
+    'admin_interface',
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +55,9 @@ THIRDS_APPS = [
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCALS_APPS + THIRDS_APPS
+
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SILENCED_SYSTEM_CHECKS = ["security.W019"]
 
 
 MIDDLEWARE = [
