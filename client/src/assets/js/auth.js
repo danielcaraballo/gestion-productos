@@ -3,7 +3,7 @@
 import CONFIG from "./config.js";
 
 // token.js contiene funciones para gestionar el token de autenticación
-import { getToken, isAuthenticated, removeToken } from './token.js';
+import { getToken, isAuthenticated, removeToken } from "./token.js";
 
 // Función para inicializar la página al cargar
 function initPage() {
@@ -11,7 +11,7 @@ function initPage() {
   if (!isAuthenticated()) {
     redirectToSignIn();
   } else {
-    console.log('Usuario autenticado');
+    console.log("Usuario autenticado");
     // Cargar datos protegidos de la API si es necesario
     fetchProtectedData();
   }
@@ -19,23 +19,24 @@ function initPage() {
 
 // Función para redirigir al usuario a la página de inicio de sesión
 function redirectToSignIn() {
-  window.location.href = '../pages/sign-in.html';
+  window.location.href = "../pages/sign-in.html";
 }
 
 // Función para obtener datos protegidos de la API
 function fetchProtectedData() {
-  axios.get(`${CONFIG.API_BASE_URL}/productos/`, {
-    headers: {
-      'Authorization': `Bearer ${getToken()}`  // Incluir el token en el encabezado
-    }
-  })
-    .then(response => {
-      console.log('Datos protegidos:', response.data);
+  axios
+    .get(`${CONFIG.API_BASE_URL}/productos/`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`, // Incluir el token en el encabezado
+      },
+    })
+    .then((response) => {
+      console.log("Datos protegidos:", response.data);
       // Procesar los datos y actualizar la página si es necesario
       updatePageWithData(response.data);
     })
-    .catch(error => {
-      console.error('Error al acceder a los datos protegidos:', error);
+    .catch((error) => {
+      console.error("Error al acceder a los datos protegidos:", error);
       handleAuthError(error);
     });
 }
@@ -50,106 +51,70 @@ function handleAuthError(error) {
 // Función para actualizar la página con datos protegidos
 function updatePageWithData(data) {
   // Aquí puedes implementar la lógica para mostrar los datos en la página
-  console.log('Actualizando la página con datos:', data);
+  console.log("Actualizando la página con datos:", data);
 }
 
 // Función para manejar el cierre de sesión
 function setupSignOutButton() {
-  const signoutButton = document.getElementById('signout-button');
-  console.log('Botón de cerrar sesión encontrado:', signoutButton);
+  const signoutButton = document.getElementById("signout-button");
+  console.log("Botón de cerrar sesión encontrado:", signoutButton);
 
   if (signoutButton) {
-    signoutButton.addEventListener('click', (event) => {
-      event.preventDefault();  // Prevenir el comportamiento predeterminado del enlace
-      console.log('Cierre de sesión...');
+    signoutButton.addEventListener("click", (event) => {
+      event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
+      console.log("Cierre de sesión...");
       removeToken();
       redirectToSignIn();
     });
   } else {
-    console.error('No se encontró el botón de cierre de sesión. Verifica el ID.');
+    console.error(
+      "No se encontró el botón de cierre de sesión. Verifica el ID."
+    );
   }
 }
 
 // Inicializar la lógica de la página cuando se carga
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   initPage();
   setupSignOutButton();
 });
 
-
 function UserProfile() {
-  if (isAuthenticated()) {  // Verifica si el token es válido y no ha expirado
-    axios.get(`${CONFIG.API_BASE_URL}/usuarios/profile-data/`, {
-      headers: {
-          'Authorization': `Bearer ${getToken()}`  // Usa el token válido
-      }
-    })
-    .then(response => {
-      // Imprime los datos para depuración
-      console.log('Profile data:', response.data);
-      const profileData = response.data;
+  if (isAuthenticated()) {
+    // Verifica si el token es válido y no ha expirado
+    axios
+      .get(`${CONFIG.API_BASE_URL}/usuarios/profile-data/`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`, // Usa el token válido
+        },
+      })
+      .then((response) => {
+        // Imprime los datos para depuración
+        console.log("Profile data:", response.data);
+        const profileData = response.data;
 
-      // Concatenar nombre y apellido, con valores por defecto
-      const firstName = profileData.first_name || "Usuario";
-      const lastName = profileData.last_name || "";
-      const fullName = `${firstName} ${lastName}`;
+        // Concatenar nombre y apellido, con valores por defecto
+        const firstName = profileData.first_name || "Usuario";
+        const lastName = profileData.last_name || "";
+        const fullName = `${firstName} ${lastName}`;
 
-      document.getElementById('full-name').textContent = fullName;  // Muestra el nombre completo
+        document.getElementById("full-name").textContent = fullName; // Muestra el nombre completo
 
-      // Mostrar grupo de usuario, con valor por defecto
-      const userGroup = profileData.groups || "Usuario estándar";
-      document.getElementById('user-group').textContent = userGroup;
-    })
-    .catch(error => {
-      console.error('Error fetching user profile:', error);
-      if (error.response && error.response.status === 401) {
-        console.error('Unauthorized, redirecting to login');
-        // Aquí puedes redirigir al usuario al login si no está autorizado
-      }
-    });
+        // Mostrar grupo de usuario, con valor por defecto
+        const userGroup = profileData.groups || "Usuario estándar";
+        document.getElementById("user-group").textContent = userGroup;
+      })
+      .catch((error) => {
+        console.error("Error fetching user profile:", error);
+        if (error.response && error.response.status === 401) {
+          console.error("Unauthorized, redirecting to login");
+          // Aquí puedes redirigir al usuario al login si no está autorizado
+        }
+      });
   } else {
-    console.error('Token no válido o expirado');
+    console.error("Token no válido o expirado");
     // Redirige al usuario al login si el token no es válido o ha expirado
   }
 }
 
 UserProfile();
-
-// Función para manejar la actualización del perfil
-function updateProfile(event) {
-  event.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
-
-  // Obtener los datos del formulario
-  const updatedProfile = {
-    first_name: document.getElementById('first_name').value = profileData.first_name || "Usuario",
-    last_name: document.getElementById('last_name').value = profileData.last_name || "",
-    email: document.getElementById('email').value
-  };
-
-  // Enviar los datos actualizados a la API
-  axios.put(`${CONFIG.API_BASE_URL}/usuarios/profile/`, updatedProfile, {
-    headers: {
-      'Authorization': `Bearer ${getToken()}`,
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(response => {
-    alert('Perfil actualizado correctamente');
-    // Aquí puedes redirigir o actualizar la página si es necesario
-  })
-  .catch(error => {
-    console.error('Error al actualizar el perfil:', error);
-    if (error.response && error.response.status === 400) {
-      alert('Error al actualizar el perfil. Verifica los datos ingresados.');
-    }
-  });
-}
-
-// Botón "Guardar" directamente vinculado
-document.getElementById('save-button').addEventListener('click', updateProfile);
-
-// Lógica para el botón de cancelar (redirigir al dashboard)
-document.getElementById('cancel-button').addEventListener('click', function(event) {
-  event.preventDefault();
-  window.location.href = '../pages/dashboard.html';  // Redirige al dashboard o donde prefieras
-});
