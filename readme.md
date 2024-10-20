@@ -1,4 +1,4 @@
-# Aplicación Web para Gestion de Productos Tecnológicos
+# Gestion de Productos Tecnológicos
 
 <!--Breve descripción del proyecto y su propósito.-->
 Aplicación web para la gestión integral de productos tecnológicos, abarcando soluciones como aplicaciones web, aplicaciones móviles, portales web y APIs. La arquitectura backend está construida con el robusto Django Framework, complementada con Django Rest Framework para el desarrollo de APIs eficientes y escalables. El frontend está implementado utilizando JavaScript Vanilla, proporcionando una interfaz ligera y ágil para los usuarios.
