@@ -10,4 +10,5 @@ __pycache__/
 # Dependencias
 node_modules/
 
+# Entorno de desarrollo
 db.sqlite3
