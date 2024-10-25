@@ -10,7 +10,7 @@ class navbar extends HTMLElement {
             </button>
             <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
               <a href="#">
-                <img src="../../public/static/Logo.svg" width="300" height="40" alt="MPPE" class="navbar-brand-image">
+                <img src="../../public/Logo.svg" width="300" height="40" alt="MPPE" class="navbar-brand-image">
               </a>
             </h1>
             <div class="navbar-nav flex-row order-md-last">
@@ -91,7 +91,7 @@ class navbar extends HTMLElement {
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" data-bs-theme="light">
                   <a href="./settings.html" class="dropdown-item">Configuración</a>
-                  <a id="signout-button" href="#" class="dropdown-item">Cerrar sesión</a>
+                  <a id="signout-button" href="../pages/sign-in.html" class="dropdown-item">Cerrar sesión</a>
                 </div>
               </div>
             </div>

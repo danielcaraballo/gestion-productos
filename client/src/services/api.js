@@ -1,4 +1,4 @@
-import CONFIG from "./config.js";
+import CONFIG from "../assets/js/config.js";
 
 // Función para obtener los estatus desde la API
 export const fetchStatusOptions = async () => {
