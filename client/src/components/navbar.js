@@ -90,7 +90,7 @@ class navbar extends HTMLElement {
                   </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" data-bs-theme="light">
-                  <a href="./settings.html" class="dropdown-item">Configuración</a>
+                  <!--<a href="./settings.html" class="dropdown-item">Configuración</a>-->
                   <a id="signout-button" href="../pages/sign-in.html" class="dropdown-item">Cerrar sesión</a>
                 </div>
               </div>
