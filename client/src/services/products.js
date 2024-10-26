@@ -44,20 +44,21 @@ function showErrorMessage() {
     '<tr><td colspan="5">Error al cargar los productos. Inténtalo de nuevo más tarde.</td></tr>';
 }
 
-function getStatusClass(estatua) {
-  switch (estatua.toLowerCase()) {
-    case "operativo":
+function getStatusClass(status) {
+  switch (status) {
+    case "Operativo":
       return "badge bg-green text-green-fg tag-status badge-empty";
-    case "mantenimiento":
+    case "Mantenimiento":
       return "badge bg-azure text-azure-fg tag-status badge-empty";
-    case "inactivo":
+    case "Inactivo":
       return "badge bg-red text-red-fg tag-status badge-empty";
-    case "retirado":
+    case "Retirado":
       return "badge bg-blue text-blue-fg tag-status badge-empty";
     default:
       return "badge bg-blue text-blue-fg tag-status badge-empty";
   }
 }
+
 
 function generateRowHTML(product) {
   const tecnologiaTags = product.tecnologias
@@ -67,7 +68,7 @@ function generateRowHTML(product) {
     )
     .join("");
 
-  const estatusClass = getStatusClass(product.estatus);
+  const statusClass = getStatusClass(product.estatus.nombre);
 
   return `
       <tr>
@@ -78,7 +79,7 @@ function generateRowHTML(product) {
         </td>
         <td class="sort-estatus">
             <span class="tag">
-                <span class="${estatusClass}"></span>${product.estatus}
+                <span class="${statusClass}"></span>${product.estatus.nombre}
             </span>
         </td>
         <td><a href="${product.direccion_url}" target="_blank">${product.direccion_url}</a></td>
