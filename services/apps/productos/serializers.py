@@ -44,7 +44,7 @@ class SubDependenciaSerializer(serializers.ModelSerializer):
 
 
 class DependenciaSerializer(serializers.ModelSerializer):
-    sub_dependencia = SubDependenciaSerializer()
+    total_productos = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Dependencia

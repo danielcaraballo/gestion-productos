@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 from .views import (EstatusViewSet, CategoriaViewSet, EnfoqueTecnologiaViewSet, LenguajeProgramacionViewSet, TecnologiaViewSet,
-                    SubDependenciaViewSet, DependenciaViewSet, SolicitanteViewSet, RolResponsableViewSet, ResponsableViewSet,ProductoViewSet, ProductoEstatusView, ProductoEstatusCountView, TecnologiaProductoViewSet, ResponsableProductoViewSet)
+                    SubDependenciaViewSet, DependenciaViewSet, SolicitanteViewSet, RolResponsableViewSet, ResponsableViewSet, ProductoViewSet, ProductoEstatusView, ProductoEstatusCountView, ProductosDependenciasCountView, TecnologiaProductoViewSet, ResponsableProductoViewSet)
 
 router = DefaultRouter()
 router.register(r'estatus', EstatusViewSet)
@@ -23,4 +23,6 @@ urlpatterns = router.urls + [
          name='producto-estatus'),
     path('producto-estatus-count/', ProductoEstatusCountView.as_view(),
          name='producto-estatus-count'),
+    path('productos-dependencias-count/', ProductosDependenciasCountView.as_view(),
+         name='productos-dependencias-count'),
 ]

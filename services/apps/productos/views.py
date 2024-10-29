@@ -1,4 +1,5 @@
-from rest_framework import viewsets
+from django.db.models import Count
+from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import (Estatus, Categoria, EnfoqueTecnologia, LenguajeProgramacion, Tecnologia,
@@ -81,6 +82,20 @@ class ProductoEstatusCountView(APIView):
             return Response(data)
         except Exception as e:
             return Response({"error": str(e)}, status=500)
+
+
+class ProductosDependenciasCountView(APIView):
+    def get(self, request):
+        try:
+            dependencias = Dependencia.objects.annotate(
+                total_productos=Count('solicitantes__producto')
+            ).filter(total_productos__gt=0)
+            dependencias = dependencias.order_by('-total_productos')
+
+            serializer = DependenciaSerializer(dependencias, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # ViewSets para tablas intermedias
