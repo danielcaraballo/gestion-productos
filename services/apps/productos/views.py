@@ -73,7 +73,10 @@ class ProductoEstatusView(APIView):
 class ProductoEstatusCountView(APIView):
     def get(self, request):
         try:
+            total_productos = Producto.objects.count()
+
             data = {
+                "total": total_productos,
                 "operativo": Producto.objects.filter(estatus__nombre="Operativo").count(),
                 "mantenimiento": Producto.objects.filter(estatus__nombre="Mantenimiento").count(),
                 "inactivo": Producto.objects.filter(estatus__nombre="Inactivo").count(),

@@ -2,7 +2,6 @@ class dependenciesCounter extends HTMLElement {
   constructor() {
     super();
     this.innerHTML = /*html*/ `
-        <div class="col-md-6 col-lg-6">
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Productos por dependencias</h3>
@@ -19,7 +18,6 @@ class dependenciesCounter extends HTMLElement {
               </tbody>
             </table>
           </div>
-        </div>
         `;
   }
 }

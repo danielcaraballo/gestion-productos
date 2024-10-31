@@ -1,23 +1,29 @@
 import CONFIG from "./config.js";
 
-window.onload = function () {
+window.addEventListener("DOMContentLoaded", () => {
   axios
     .get(`${CONFIG.API_BASE_URL}/productos/producto-estatus-count/`)
     .then((response) => {
       const data = response.data;
 
-      document.getElementById(
-        "contador-operativos"
-      ).textContent = `${data.operativo} Productos`;
-      document.getElementById(
-        "contador-mantenimiento"
-      ).textContent = `${data.mantenimiento} Productos`;
-      document.getElementById(
-        "contador-inactivos"
-      ).textContent = `${data.inactivo} Productos`;
-      document.getElementById(
-        "contador-retirados"
-      ).textContent = `${data.retirado} Productos`;
+      // Verifica que los elementos existan antes de acceder a ellos
+      const contadorOperativos = document.getElementById("contador-operativos");
+      const contadorMantenimiento = document.getElementById("contador-mantenimiento");
+      const contadorInactivos = document.getElementById("contador-inactivos");
+      const contadorRetirados = document.getElementById("contador-retirados");
+
+      if (contadorOperativos) {
+        contadorOperativos.textContent = `${data.operativo} Productos`;
+      }
+      if (contadorMantenimiento) {
+        contadorMantenimiento.textContent = `${data.mantenimiento} Productos`;
+      }
+      if (contadorInactivos) {
+        contadorInactivos.textContent = `${data.inactivo} Productos`;
+      }
+      if (contadorRetirados) {
+        contadorRetirados.textContent = `${data.retirado} Productos`;
+      }
     })
     .catch((error) => {
       console.error(
@@ -25,4 +31,4 @@ window.onload = function () {
         error
       );
     });
-};
+});

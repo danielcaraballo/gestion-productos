@@ -4,3 +4,4 @@ import './footer.js';
 import './form-add-product.js';
 import './dependencies-counter.js';
 import './status-counter.js';
+import './products-counter.js';

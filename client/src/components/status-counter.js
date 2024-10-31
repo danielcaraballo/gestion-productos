@@ -2,7 +2,6 @@ class statusCounter extends HTMLElement {
   constructor() {
     super();
     this.innerHTML = /*html*/ `
-        <div class="col-12">
             <div class="row row-cards">
             <!-- Contador: Productos Operativos -->
             <div class="col-sm-6 col-lg-3">
@@ -120,8 +119,7 @@ class statusCounter extends HTMLElement {
                 </div>
             </div>
             </div>
-    </div>
-    </div>
+        </div>
           `;
   }
 }
