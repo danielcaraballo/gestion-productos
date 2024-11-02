@@ -64,6 +64,9 @@ class ProductoViewSet(viewsets.ModelViewSet):
     serializer_class = ProductoSerializer
 
 
+# Views personalizados
+
+
 class ProductoEstatusView(APIView):
     def get(self, request):
         estatus = Estatus.objects.all().values('id', 'nombre')
@@ -99,6 +102,27 @@ class ProductosDependenciasCountView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class ProductosTecnologiasCountView(APIView):
+    def get(self, request):
+        try:
+            data = (
+                TecnologiaProducto.objects
+                .select_related('tecnologia')
+                .values('tecnologia__nombre')
+                .annotate(count=Count('producto'))
+            )
+            response_data = [
+                {
+                    'tecnologia': item['tecnologia__nombre'],
+                    'count': item['count']
+                }
+                for item in data
+            ]
+            return Response(response_data)
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
 
 
 # ViewSets para tablas intermedias
