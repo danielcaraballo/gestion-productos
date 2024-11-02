@@ -55,16 +55,17 @@
       <div class="page-body">
         <div class="container-xl">
           <div class="row row-deck row-cards">
+            <products-counter class="col-12"></products-counter>
             <status-counter class="col-12"></status-counter>
-            <products-counter class="col-md-6 col-lg-6"></products-counter>
-            <dependencies-counter class="col-md-6 col-lg-6"></dependencies-counter>
+            <dependencies-counter class="col-md-12 col-lg-7"></dependencies-counter>
+            <technologies-counter class="col-md-12 col-lg-5"></technologies-counter>
             </div>
           </div>
         </div>
       </div>
+      <!-- Footer -->
+      <footer-component></footer-component>
     </div>
-    <!-- Footer -->
-    <footer-component></footer-component>
   </div>
   </div>
   <!-- Scripts -->
@@ -74,4 +75,56 @@
   <!-- Tabler Core -->
   <script src="../assets/js/tabler.min.js" defer></script>
   <script src="../assets/js/demo.min.js" defer></script>
+  <!-- Libs JS -->
+  <script src="../assets/libs/apexcharts/dist/apexcharts.min.js" defer></script>
 </body>
+
+<!-- Script apexcharts -->
+<script>
+  // @formatter:off
+  document.addEventListener("DOMContentLoaded", function () {
+    window.ApexCharts && (new ApexCharts(document.getElementById('chart-demo-pie'), {
+      chart: {
+        type: "donut",
+        fontFamily: 'inherit',
+        height: 300,
+        sparkline: {
+          enabled: true
+        },
+        animations: {
+          enabled: true
+        },
+      },
+      fill: {
+        opacity: 1,
+      },
+      series: [44, 55, 12, 2],
+      labels: ["Django", "Nest", "React", "Vue"],
+      tooltip: {
+        theme: 'dark'
+      },
+      grid: {
+        strokeDashArray: 4,
+      },
+      colors: [tabler.getColor("primary"), tabler.getColor("primary", 0.8), tabler.getColor("primary", 0.6), tabler.getColor("primary", 0.4)],
+      legend: {
+        show: true,
+        position: 'bottom',
+        offsetY: 12,
+        markers: {
+          width: 10,
+          height: 10,
+          radius: 100,
+        },
+        itemMargin: {
+          horizontal: 8,
+          vertical: 8
+        },
+      },
+      tooltip: {
+        fillSeriesColor: false
+      },
+    })).render();
+  });
+  // @formatter:on
+</script>
