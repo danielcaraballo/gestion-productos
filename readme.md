@@ -5,7 +5,7 @@ Aplicación web para la gestión integral de productos tecnológicos, abarcando 
 
 ## Versión Actual
 
-Versión actual del proyecto: `v1.0.0`
+Versión actual del proyecto: `v1.0`
 
 ## Historial de Versiones
 
@@ -25,4 +25,4 @@ Guía para contribuir al proyecto.
 - Empuja la rama (git push origin feature/nueva-feature).
 - Abre un Pull Request (PR)
 
-© Daniel Caraballo, 2024. Todos los derechos reservados.
+© 2024 - Daniel Caraballo. Todos los derechos reservados.
