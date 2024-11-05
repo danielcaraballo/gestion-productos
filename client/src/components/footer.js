@@ -8,14 +8,14 @@ class footer extends HTMLElement {
                 <div class="col-lg-auto ms-lg-auto">
                 <ul class="list-inline list-inline-dots mb-0">
                     <li class="list-inline-item">
-                    v1.0.0-beta
+                    v1.0
                     </li>
                 </ul>
                 </div>
                 <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                 <ul class="list-inline list-inline-dots mb-0">
                     <li class="list-inline-item">
-                    Copyright &copy; 2024 Daniel Caraballo. All rights reserved.
+                        &copy; 2024 - Daniel Caraballo. Todos los derechos reservados.
                     </li>
                 </ul>
                 </div>
