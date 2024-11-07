@@ -1,4 +1,5 @@
 import CONFIG from "./config.js";
+import "./detail-product";
 
 let currentPage = 1; // Página inicial
 const productsPerPage = 10; // Número de productos por página
@@ -59,7 +60,6 @@ function getStatusClass(status) {
   }
 }
 
-
 function generateRowHTML(product) {
   const tecnologiaTags = product.tecnologias
     .map(
@@ -72,7 +72,11 @@ function generateRowHTML(product) {
 
   return `
       <tr>
-        <td class="sort-nombre">${product.nombre}</td>
+        <td class="sort-nombre">
+          <a class="open-modal" data-bs-toggle="modal" data-bs-target="#modal-simple" data-product-id="${product.id}">
+            ${product.nombre}
+          </a>
+        </td>
         <td class="sort-categoria">${product.categoria.nombre}</td>
         <td class="sort-tecnologias">
             <div class="tags-list">${tecnologiaTags}</div>
