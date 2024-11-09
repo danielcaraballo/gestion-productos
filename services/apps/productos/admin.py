@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import (Estatus, Categoria, EnfoqueTecnologia, LenguajeProgramacion, Tecnologia,
-                     SubDependencia, Dependencia, Solicitante, RolResponsable, Responsable, 
+                     SubDependencia, Dependencia, CargoSolicitante, Solicitante, RolResponsable, Responsable,
                      Producto, TecnologiaProducto, ResponsableProducto)
 
 
@@ -31,6 +31,7 @@ admin.site.register(LenguajeProgramacion)
 admin.site.register(Tecnologia)
 admin.site.register(SubDependencia)
 admin.site.register(Dependencia)
+admin.site.register(CargoSolicitante)
 admin.site.register(Solicitante)
 admin.site.register(RolResponsable)
 admin.site.register(Responsable)

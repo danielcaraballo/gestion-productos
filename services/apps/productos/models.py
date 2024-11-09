@@ -56,11 +56,11 @@ class Tecnologia(models.Model):
         LenguajeProgramacion, on_delete=models.PROTECT)
 
     def __str__(self) -> str:
-        return f"{self.nombre} ({self.enfoque})"
+        return f"{self.nombre} - {self.enfoque}"
 
     class Meta:
-        verbose_name = "Tecnologia"
-        verbose_name_plural = "Tecnologias"
+        verbose_name = "Tecnología"
+        verbose_name_plural = "Tecnologías"
 
 
 class Dependencia(models.Model):
@@ -79,7 +79,7 @@ class SubDependencia(models.Model):
     nombre = models.CharField(
         max_length=100, verbose_name="Nombre de la SubDependencia")
     dependencia = models.ForeignKey(
-        Dependencia, on_delete=models.CASCADE, related_name='sub_dependencias')
+        Dependencia, on_delete=models.PROTECT, related_name='sub_dependencias')
 
     def __str__(self) -> str:
         return self.nombre
@@ -89,11 +89,23 @@ class SubDependencia(models.Model):
         verbose_name_plural = "SubDependencias"
 
 
+class CargoSolicitante(models.Model):
+    nombre = models.CharField(max_length=100, verbose_name="Nombre del Cargo")
+
+    def __str__(self) -> str:
+        return self.nombre
+
+    class Meta:
+        verbose_name = "Cargo del Solicitante"
+        verbose_name_plural = "Cargos de los Solicitantes"
+
+
 class Solicitante(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
-    cargo = models.CharField(max_length=100)
-    contacto = models.CharField(max_length=100)
+    cargo = models.ForeignKey(CargoSolicitante, on_delete=models.PROTECT)
+    extension = models.CharField(
+        max_length=10, verbose_name="Extensión Telefónica")
     dependencia = models.ForeignKey(
         Dependencia, on_delete=models.PROTECT, related_name='solicitantes')
     sub_dependencia = models.ForeignKey(
@@ -121,11 +133,12 @@ class RolResponsable(models.Model):
 class Responsable(models.Model):
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
-    contacto = models.CharField(max_length=50)
+    telefono = models.CharField(
+        max_length=15, verbose_name="Número de Teléfono")
     rol = models.ForeignKey(RolResponsable, on_delete=models.PROTECT)
 
     def __str__(self) -> str:
-        return f"{self.nombre} {self.apellido} ({self.rol})"
+        return f"{self.nombre} {self.apellido} - {self.rol}"
 
     class Meta:
         verbose_name = "Responsable"
@@ -162,6 +175,10 @@ class TecnologiaProducto(models.Model):
     class Meta:
         verbose_name = "Tecnologia del Producto"
         verbose_name_plural = "Tecnologias de los Productos"
+        constraints = [
+            models.UniqueConstraint(
+                fields=['tecnologia', 'producto'], name='unique_tecnologia_producto')
+        ]
 
 
 class ResponsableProducto(models.Model):
@@ -174,3 +191,7 @@ class ResponsableProducto(models.Model):
     class Meta:
         verbose_name = "Responsable del Producto"
         verbose_name_plural = "Responsables de los Productos"
+        constraints = [
+            models.UniqueConstraint(
+                fields=['responsable', 'producto'], name='unique_responsable_producto')
+        ]

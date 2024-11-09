@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import (Estatus, Categoria, EnfoqueTecnologia, LenguajeProgramacion,  Tecnologia,
-                     SubDependencia, Dependencia, Solicitante, RolResponsable, Responsable,
+                     SubDependencia, Dependencia, CargoSolicitante, Solicitante, RolResponsable, Responsable,
                      Producto, TecnologiaProducto, ResponsableProducto)
 
 
@@ -51,8 +51,15 @@ class DependenciaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CargoSolicitanteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CargoSolicitante
+        fields = '__all__'
+
+
 class SolicitanteSerializer(serializers.ModelSerializer):
     dependencia = DependenciaSerializer()
+    cargo = CargoSolicitanteSerializer()
 
     class Meta:
         model = Solicitante
@@ -112,7 +119,7 @@ class ProductoDetailSerializer(serializers.ModelSerializer):
             return {
                 "nombre": obj.solicitante.nombre,
                 "apellido": obj.solicitante.apellido,
-                "cargo": obj.solicitante.cargo,
+                "cargo": obj.solicitante.cargo.nombre,
                 "dependencia": {
                     "nombre": obj.solicitante.dependencia.nombre
                 }
