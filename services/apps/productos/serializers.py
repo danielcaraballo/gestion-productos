@@ -83,12 +83,52 @@ class ProductoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_tecnologias(self, obj):
-        # Obtén todas las instancias de TecnologiaProducto relacionadas con el producto
         tecnologias_productos = TecnologiaProducto.objects.filter(producto=obj)
-        # Serializa solo las tecnologías de cada TecnologiaProducto
         tecnologias = [tp.tecnologia for tp in tecnologias_productos]
         serializer = TecnologiaSerializer(tecnologias, many=True)
         return serializer.data
+
+
+class ProductoDetailSerializer(serializers.ModelSerializer):
+    estatus = EstatusSerializer()
+    categoria = CategoriaSerializer()
+    tecnologias = serializers.SerializerMethodField()
+    solicitante = serializers.SerializerMethodField()
+    responsables = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Producto
+        fields = '__all__'
+
+    def get_tecnologias(self, obj):
+        tecnologias_productos = TecnologiaProducto.objects.filter(producto=obj)
+        tecnologias = [tp.tecnologia for tp in tecnologias_productos]
+        serializer = TecnologiaSerializer(tecnologias, many=True)
+        return serializer.data
+
+    def get_solicitante(self, obj):
+        if obj.solicitante:
+            return {
+                "nombre": obj.solicitante.nombre,
+                "apellido": obj.solicitante.apellido,
+                "cargo": obj.solicitante.cargo,
+                "dependencia": {
+                    "nombre": obj.solicitante.dependencia.nombre
+                }
+            }
+        return None
+
+    def get_responsables(self, obj):
+        responsables = ResponsableProducto.objects.filter(producto=obj)
+        return [
+            {
+                "nombre": responsable.responsable.nombre,
+                "apellido": responsable.responsable.apellido,
+                "rol": responsable.responsable.rol.nombre if responsable.responsable.rol else None
+            }
+            for responsable in responsables
+        ]
+
 
 # Definicion de tablas intermedias
 

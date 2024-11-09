@@ -6,7 +6,7 @@ from .models import (Estatus, Categoria, EnfoqueTecnologia, LenguajeProgramacion
                      SubDependencia, Dependencia, Solicitante, RolResponsable, Responsable,
                      Producto,  TecnologiaProducto, ResponsableProducto)
 from .serializers import (EstatusSerializer, CategoriaSerializer, EnfoqueTecnologiaSerializer, LenguajeProgramacionSerializer,
-                          TecnologiaSerializer, SubDependenciaSerializer, DependenciaSerializer, SolicitanteSerializer, RolResponsableSerializer, ResponsableSerializer, ProductoSerializer, TecnologiaProductoSerializer, ResponsableProductoSerializer)
+                          TecnologiaSerializer, SubDependenciaSerializer, DependenciaSerializer, SolicitanteSerializer, RolResponsableSerializer, ResponsableSerializer, ProductoSerializer, TecnologiaProductoSerializer, ResponsableProductoSerializer, ProductoDetailSerializer)
 
 
 class EstatusViewSet(viewsets.ModelViewSet):
@@ -65,6 +65,15 @@ class ProductoViewSet(viewsets.ModelViewSet):
 
 
 # Views personalizados
+
+class ProductoDetailView(APIView):
+    def get(self, request, pk):
+        try:
+            producto = Producto.objects.get(pk=pk)
+            serializer = ProductoDetailSerializer(producto)
+            return Response(serializer.data)
+        except Producto.DoesNotExist:
+            return Response({"error": "Producto no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class ProductoEstatusView(APIView):
