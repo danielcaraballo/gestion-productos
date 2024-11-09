@@ -95,6 +95,7 @@ class ProductoDetailSerializer(serializers.ModelSerializer):
     tecnologias = serializers.SerializerMethodField()
     solicitante = serializers.SerializerMethodField()
     responsables = serializers.SerializerMethodField()
+    fecha_lanzamiento = serializers.SerializerMethodField()
 
     class Meta:
         model = Producto
@@ -128,6 +129,9 @@ class ProductoDetailSerializer(serializers.ModelSerializer):
             }
             for responsable in responsables
         ]
+
+    def get_fecha_lanzamiento(self, obj):
+        return obj.fecha_lanzamiento.strftime('%d-%m-%Y')
 
 
 # Definicion de tablas intermedias

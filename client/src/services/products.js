@@ -73,8 +73,7 @@ function generateRowHTML(product) {
   return `
       <tr>
         <td class="sort-nombre">
-          <a class="open-modal" data-bs-toggle="modal" data-bs-target="#modal-simple" data-product-id="${product.id}">
-            ${product.nombre}
+          <a class="open-modal" data-bs-toggle="modal" data-bs-target="#modal-simple" data-product-id="${product.id}" style="cursor: pointer;"> <strong>${product.nombre}</strong>
           </a>
         </td>
         <td class="sort-categoria">${product.categoria.nombre}</td>

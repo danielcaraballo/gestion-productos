@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const modalRequester = document.querySelector("#modal-requester");
       const modalStatus = document.querySelector("#modal-status");
       const modalTechnologies = document.querySelector("#modal-technologies");
-      const modalResponsibles = document.querySelector("#modal-responsibles");
+      const modalResponsiblesList = document.querySelector(
+        "#modal-responsibles-list"
+      );
       const modalUrlButton = document.querySelector("#modal-url-button");
 
       if (!modalTitle) {
@@ -38,27 +40,68 @@ document.addEventListener("DOMContentLoaded", () => {
           // Formato del solicitante
           const requesterName =
             productData.solicitante.nombre || "Solicitante no asignado";
-          const requesterLastName = productData.solicitante.apellido || " ";
+          const requesterLastName = productData.solicitante.apellido || "";
           const requesterDepartment =
             productData.solicitante.dependencia.nombre ||
             "Dependencia no asignada";
-          modalRequester.textContent = `${requesterName} ${requesterLastName} (${requesterDepartment})`;
+          modalRequester.textContent = `${requesterName} ${requesterLastName} - ${requesterDepartment}`;
 
-          modalStatus.textContent = productData.estatus.nombre;
-          modalTechnologies.textContent = productData.tecnologias
-            .map((t) => t.nombre)
-            .join(", ");
+          // Obtener la clase para el estatus
+          const statusClass = getStatusClass(productData.estatus.nombre);
+          modalStatus.innerHTML = `
+            <span class="tag">
+              <span class="${statusClass}"></span>${productData.estatus.nombre}
+            </span>
+          `;
+
+          // Función para obtener la clase del estatus
+          function getStatusClass(status) {
+            switch (status) {
+              case "Operativo":
+                return "badge bg-green text-green-fg tag-status badge-empty";
+              case "Mantenimiento":
+                return "badge bg-azure text-azure-fg tag-status badge-empty";
+              case "Inactivo":
+                return "badge bg-red text-red-fg tag-status badge-empty";
+              case "Retirado":
+                return "badge bg-blue text-blue-fg tag-status badge-empty";
+              default:
+                return "badge bg-blue text-blue-fg tag-status badge-empty";
+            }
+          }
+
+          // modalTechnologies.textContent = productData.tecnologias
+          //   .map((t) => t.nombre)
+          //   .join(", ");
+
+          // Obtener los tags de las tecnologías
+          const tecnologiaTags = productData.tecnologias
+            .map(
+              (tecnologia) => `
+              <span class="tag">${tecnologia.nombre}</span>`
+            )
+            .join("");
+
+          // Insertar los tags de tecnologías en el modal
+          modalTechnologies.innerHTML = tecnologiaTags;
+
+          // Limpiar la lista de responsables antes de agregar nuevos elementos
+          modalResponsiblesList.innerHTML = "";
 
           // Manejar la relación con responsables desde la tabla intermedia
           if (
             Array.isArray(productData.responsables) &&
             productData.responsables.length > 0
           ) {
-            modalResponsibles.textContent = productData.responsables
-              .map((r) => r.nombre)
-              .join(", ");
+            productData.responsables.forEach((responsable) => {
+              const listItem = document.createElement("li");
+              listItem.textContent = `${responsable.nombre} ${responsable.apellido} - ${responsable.rol}`;
+              modalResponsiblesList.appendChild(listItem);
+            });
           } else {
-            modalResponsibles.textContent = "No responsables asignados";
+            const listItem = document.createElement("li");
+            listItem.textContent = "No responsables asignados";
+            modalResponsiblesList.appendChild(listItem);
           }
 
           // Configurar el enlace del botón
