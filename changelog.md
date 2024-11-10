@@ -1,6 +1,6 @@
 # Historial de Versiones
 
-## [v1.0.0] - 2024-11-15
+## `v1.0.0` - 2024-11-15
 
 ### Añadido
 
