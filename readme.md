@@ -5,7 +5,7 @@ Aplicación web para la gestión integral de productos tecnológicos, abarcando 
 
 ## Versión Actual
 
-Versión actual del proyecto: `v1.0`
+Versión actual del proyecto: `v1.0.0`
 
 ## Historial de Versiones
 
