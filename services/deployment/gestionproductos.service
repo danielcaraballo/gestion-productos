@@ -1,0 +1,17 @@
+[Unit]
+Description=Service
+Requires=gestionproductos.socket
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/html/gestionproductos/services/
+ExecStart=/var/www/html/gestionproductos/services/venv/bin/gunicorn \
+        --access-logfile - \
+        --workers 3 \
+        --bind unix:/run/gestionproductos.sock \
+        config.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
