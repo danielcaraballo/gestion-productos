@@ -4,9 +4,9 @@ Requires=gestionproductos.socket
 After=network.target
 
 [Service]
-User=www-data
+User=www-data   
 Group=www-data
-WorkingDirectory=/srv/www/gestion-productos/services/
+WorkingDirectory=/srv/www/gestion-productos/services 
 ExecStart=/srv/www/gestion-productos/services/venv/bin/gunicorn \
         --access-logfile - \
         --workers 3 \
